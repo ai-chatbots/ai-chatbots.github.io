@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coffee Shop Chatbot Mobile | AION Agents</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <h1>Coffee Shop Chatbot Mobile</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">&larr; Back Home</a></li>
+        </ul>
+      </nav>
+      <button id="themeToggle" class="toggle-btn">Toggle Dark Mode</button>
+    </div>
+  </header>
+
+  <main class="doc-main">
+    <div class="container">
+      <section class="doc-section">
+        <h2>Overview</h2>
+        <p>
+          This documentation covers the code, theory, and design decisions behind the Coffee Shop Chatbot Mobile project.
+        </p>
+      </section>
+      
+      <section class="doc-section">
+        <h2>Code Example</h2>
+        <button class="toggle-code-btn" onclick="toggleCode('codeBlock1')">Show/Hide Code Example</button>
+        <pre id="codeBlock1" class="code-block" style="display:none;">
+// Example: Simple chatbot response logic in JavaScript
+function getChatbotResponse(message) {
+  if (message.toLowerCase().includes("coffee")) {
+    return "Would you like to try our new espresso?";
+  }
+  return "How can I help you today?";
+}
+        </pre>
+      </section>
+
+      <section class="doc-section">
+        <h2>Theory</h2>
+        <p>
+          The chatbot leverages natural language processing basics to detect keywords and respond accordingly.
+          Future improvements include integrating with an AI language model.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 AION Agents. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <script src="script.js"></script>
+</body>
+</html>

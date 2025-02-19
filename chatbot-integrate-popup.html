@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chatbot Integrate Popup | AION Agents</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <h1>Chatbot Integrate Popup</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">&larr; Back Home</a></li>
+        </ul>
+      </nav>
+      <button id="themeToggle" class="toggle-btn">Toggle Dark Mode</button>
+    </div>
+  </header>
+
+  <main class="doc-main">
+    <div class="container">
+      <section class="doc-section">
+        <h2>Overview</h2>
+        <p>
+          This documentation describes how the Chatbot Integrate Popup works, including the implementation details and integration steps.
+        </p>
+      </section>
+      
+      <section class="doc-section">
+        <h2>Code Example</h2>
+        <button class="toggle-code-btn" onclick="toggleCode('codeBlock3')">Show/Hide Code Example</button>
+        <pre id="codeBlock3" class="code-block" style="display:none;">
+// Example: Popup initialization and chatbot integration
+document.addEventListener("DOMContentLoaded", function() {
+  const popupBtn = document.getElementById("popupBtn");
+  popupBtn.addEventListener("click", function() {
+    document.getElementById("chatbotPopup").classList.toggle("visible");
+  });
+});
+        </pre>
+      </section>
+
+      <section class="doc-section">
+        <h2>Theory</h2>
+        <p>
+          The integration popup is designed to be non-intrusive, triggering only when a user shows interest. It leverages event listeners and CSS transitions for smooth interactions.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 AION Agents. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <script src="script.js"></script>
+</body>
+</html>
