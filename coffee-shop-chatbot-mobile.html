@@ -10,6 +10,7 @@
 </head>
 <body>
   <header>
+    <div class="header-overlay"></div>
     <div class="container header-container">
       <h1>Coffee Shop Chatbot Mobile</h1>
       <nav>
@@ -33,8 +34,8 @@
       <section class="doc-section">
         <h2>Code Example</h2>
         <button class="toggle-code-btn" onclick="toggleCode('codeBlock1')">Show/Hide Code Example</button>
-        <pre id="codeBlock1" class="code-block" style="display:none;">
-// Example: Simple chatbot response logic in JavaScript
+        <pre id="codeBlock1" class="code-block">
+/* Simple chatbot response logic */
 function getChatbotResponse(message) {
   if (message.toLowerCase().includes("coffee")) {
     return "Would you like to try our new espresso?";
@@ -47,8 +48,7 @@ function getChatbotResponse(message) {
       <section class="doc-section">
         <h2>Theory</h2>
         <p>
-          The chatbot leverages natural language processing basics to detect keywords and respond accordingly.
-          Future improvements include integrating with an AI language model.
+          The chatbot leverages natural language processing basics to detect keywords and respond accordingly. Future improvements include integrating with an AI language model.
         </p>
       </section>
     </div>

@@ -10,6 +10,7 @@
 </head>
 <body>
   <header>
+    <div class="header-overlay"></div>
     <div class="container header-container">
       <h1>Chatbot Integrate Popup</h1>
       <nav>
@@ -26,18 +27,18 @@
       <section class="doc-section">
         <h2>Overview</h2>
         <p>
-          This documentation describes how the Chatbot Integrate Popup works, including the implementation details and integration steps.
+          This documentation describes how the Chatbot Integrate Popup works, including implementation details and integration steps.
         </p>
       </section>
       
       <section class="doc-section">
         <h2>Code Example</h2>
         <button class="toggle-code-btn" onclick="toggleCode('codeBlock3')">Show/Hide Code Example</button>
-        <pre id="codeBlock3" class="code-block" style="display:none;">
-// Example: Popup initialization and chatbot integration
+        <pre id="codeBlock3" class="code-block">
+/* Popup initialization and chatbot integration */
 document.addEventListener("DOMContentLoaded", function() {
   const popupBtn = document.getElementById("popupBtn");
-  popupBtn.addEventListener("click", function() {
+  popupBtn && popupBtn.addEventListener("click", function() {
     document.getElementById("chatbotPopup").classList.toggle("visible");
   });
 });
@@ -47,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <section class="doc-section">
         <h2>Theory</h2>
         <p>
-          The integration popup is designed to be non-intrusive, triggering only when a user shows interest. It leverages event listeners and CSS transitions for smooth interactions.
+          The integration popup is designed to be non-intrusive, activating when a user shows interest. It leverages CSS transitions and event listeners for a smooth experience.
         </p>
       </section>
     </div>
