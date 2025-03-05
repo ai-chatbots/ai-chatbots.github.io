@@ -4,123 +4,149 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AION Agents SaaS – Chatbots Showcase</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+  <!-- TailwindCSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          animation: {
+            'gradient-x': 'gradientAnimation 15s ease infinite',
+          },
+          keyframes: {
+            gradientAnimation: {
+              '0%': { 'background-position': '0% 50%' },
+              '50%': { 'background-position': '100% 50%' },
+              '100%': { 'background-position': '0% 50%' },
+            },
+          },
+        },
+      },
+    }
+  </script>
 </head>
-<body>
-  <header>
-    <div class="header-overlay"></div>
-    <div class="container header-container">
-      <h1>AION Agents SaaS</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">HOME</a></li>
-          <li><a href="tutors.html">TUTORS</a></li>
-          <li><a href="portfolio.html">PORTFOLIO</a></li>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+  <!-- Header with animated gradient overlay -->
+  <header class="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-orange-500 via-purple-500 to-blue-500 opacity-70 animate-gradient-x"></div>
+    <div class="relative z-10 container mx-auto text-center py-8">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">AION Agents SaaS</h1>
+      <nav class="mb-4">
+        <ul class="flex justify-center space-x-6">
+          <li><a href="index.html" class="text-white font-semibold hover:text-yellow-300">HOME</a></li>
+          <li><a href="tutors.html" class="text-white font-semibold hover:text-yellow-300">TUTORS</a></li>
+          <li><a href="portfolio.html" class="text-white font-semibold hover:text-yellow-300">PORTFOLIO</a></li>
         </ul>
       </nav>
-      <button id="themeToggle" class="toggle-btn">Toggle Dark Mode</button>
+      <button id="themeToggle" class="bg-yellow-300 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-yellow-400">Toggle Dark Mode</button>
     </div>
   </header>
 
+  <!-- Main Content -->
   <main>
     <!-- Hero Section -->
-    <section class="hero">
-      <div class="container">
-        <h2>Empower Your Business with AI Chatbots</h2>
-        <p>Experience live demos, explore key features, and subscribe to transform your customer interactions.</p>
-        <a class="btn" href="#pricing">Subscribe Now &rarr;</a>
+    <section class="py-16 text-center">
+      <div class="container mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Empower Your Business with AI Chatbots</h2>
+        <p class="text-lg mb-8">Experience live demos, explore key features, and subscribe to transform your customer interactions.</p>
+        <a href="#pricing" class="inline-block bg-orange-500 text-white py-3 px-6 rounded-full font-semibold hover:bg-orange-600">Subscribe Now &rarr;</a>
       </div>
     </section>
 
     <!-- Live Chatbot Demos Section -->
-    <section class="live-demos">
-      <div class="container">
-        <h2>Live Chatbot Demos</h2>
-        <div class="demo-cards">
-          <div class="card">
-            <h3>FAQ Bot</h3>
-            <img src="https://via.placeholder.com/300x200" alt="FAQ Bot Demo">
-            <p>Interactive demo of our FAQ chatbot.</p>
-            <a class="btn" href="#demo-faq">Try Demo</a>
+    <section class="py-16 bg-gray-50 dark:bg-gray-800">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-8">Live Chatbot Demos</h2>
+        <div class="flex flex-wrap justify-center gap-8">
+          <!-- FAQ Bot Card -->
+          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
+            <h3 class="text-xl font-semibold mb-2">FAQ Bot</h3>
+            <img src="https://via.placeholder.com/300x200" alt="FAQ Bot Demo" class="rounded-md mb-4">
+            <p class="mb-4">Interactive demo of our FAQ chatbot.</p>
+            <a href="#demo-faq" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Try Demo</a>
           </div>
-          <div class="card">
-            <h3>Sales Bot</h3>
-            <img src="https://via.placeholder.com/300x200" alt="Sales Bot Demo">
-            <p>Boost your sales with our intelligent Sales Bot.</p>
-            <a class="btn" href="#demo-sales">Try Demo</a>
+          <!-- Sales Bot Card -->
+          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
+            <h3 class="text-xl font-semibold mb-2">Sales Bot</h3>
+            <img src="https://via.placeholder.com/300x200" alt="Sales Bot Demo" class="rounded-md mb-4">
+            <p class="mb-4">Boost your sales with our intelligent Sales Bot.</p>
+            <a href="#demo-sales" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Try Demo</a>
           </div>
-          <div class="card">
-            <h3>Support Bot</h3>
-            <img src="https://via.placeholder.com/300x200" alt="Support Bot Demo">
-            <p>Enhance customer support with our 24/7 Support Bot.</p>
-            <a class="btn" href="#demo-support">Try Demo</a>
+          <!-- Support Bot Card -->
+          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
+            <h3 class="text-xl font-semibold mb-2">Support Bot</h3>
+            <img src="https://via.placeholder.com/300x200" alt="Support Bot Demo" class="rounded-md mb-4">
+            <p class="mb-4">Enhance customer support with our 24/7 Support Bot.</p>
+            <a href="#demo-support" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Try Demo</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Features & Integrations Section -->
-    <section class="features">
-      <div class="container">
-        <h2>Features & Integrations</h2>
-        <ul class="feature-list">
+    <!-- Features Section -->
+    <section class="py-16">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Features & Integrations</h2>
+        <ul class="space-y-3 text-lg">
           <li>Seamless CRM integration</li>
           <li>AI-powered natural language processing</li>
-          <li>Real-time analytics & reporting</li>
-          <li>Customizable responses & branding</li>
+          <li>Real-time analytics &amp; reporting</li>
+          <li>Customizable responses &amp; branding</li>
           <li>Multi-platform support (web, mobile, social)</li>
         </ul>
       </div>
     </section>
 
-    <!-- Pricing & Subscription Section -->
-    <section class="pricing" id="pricing">
-      <div class="container">
-        <h2>Pricing & Subscription</h2>
-        <div class="pricing-cards">
-          <div class="card">
-            <h3>Basic</h3>
-            <p class="price">$29/month</p>
-            <ul>
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 bg-gray-50 dark:bg-gray-800">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-8">Pricing &amp; Subscription</h2>
+        <div class="flex flex-wrap justify-center gap-8">
+          <!-- Basic Plan -->
+          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
+            <h3 class="text-2xl font-bold mb-2">Basic</h3>
+            <p class="text-3xl font-semibold mb-4">$29/month</p>
+            <ul class="text-left space-y-2 mb-4">
               <li>FAQ Bot Demo</li>
               <li>Basic integrations</li>
               <li>Email support</li>
             </ul>
-            <a class="btn" href="#subscribe">Subscribe</a>
+            <a href="#subscribe" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Subscribe</a>
           </div>
-          <div class="card">
-            <h3>Pro</h3>
-            <p class="price">$59/month</p>
-            <ul>
+          <!-- Pro Plan -->
+          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
+            <h3 class="text-2xl font-bold mb-2">Pro</h3>
+            <p class="text-3xl font-semibold mb-4">$59/month</p>
+            <ul class="text-left space-y-2 mb-4">
               <li>All demo bots</li>
               <li>Advanced analytics</li>
               <li>Priority support</li>
             </ul>
-            <a class="btn" href="#subscribe">Subscribe</a>
+            <a href="#subscribe" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Subscribe</a>
           </div>
-          <div class="card">
-            <h3>Enterprise</h3>
-            <p class="price">Contact Us</p>
-            <ul>
+          <!-- Enterprise Plan -->
+          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
+            <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+            <p class="text-3xl font-semibold mb-4">Contact Us</p>
+            <ul class="text-left space-y-2 mb-4">
               <li>Custom solutions</li>
               <li>Dedicated account manager</li>
               <li>24/7 support</li>
             </ul>
-            <a class="btn" href="#subscribe">Contact Sales</a>
+            <a href="#subscribe" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Contact Sales</a>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container">
+  <!-- Footer -->
+  <footer class="py-8 bg-gray-800 text-white text-center">
+    <div class="container mx-auto">
       <p>&copy; 2025 AION Agents SaaS. All rights reserved.</p>
     </div>
   </footer>
-
   <script src="script.js"></script>
 </body>
 </html>

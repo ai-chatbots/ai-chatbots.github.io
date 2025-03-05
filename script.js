@@ -1,28 +1,14 @@
-// Dark mode toggle with localStorage support
+// Dark mode toggle with localStorage support using Tailwind's dark mode classes
 (function() {
   const toggleBtn = document.getElementById('themeToggle');
   if (toggleBtn) {
+    // Check if dark mode was saved in localStorage
     if (localStorage.getItem('darkMode') === 'true') {
-      document.body.classList.add('dark-mode');
+      document.documentElement.classList.add('dark');
     }
     toggleBtn.addEventListener('click', function() {
-      document.body.classList.toggle('dark-mode');
-      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
     });
   }
 })();
-
-// Example function for toggling code sections (if needed for future enhancements)
-function toggleCode(elementId) {
-  const codeBlock = document.getElementById(elementId);
-  if (codeBlock) {
-    if (codeBlock.style.maxHeight) {
-      codeBlock.style.maxHeight = null;
-      codeBlock.style.opacity = 0;
-    } else {
-      codeBlock.style.display = 'block';
-      codeBlock.style.maxHeight = codeBlock.scrollHeight + "px";
-      codeBlock.style.opacity = 1;
-    }
-  }
-}

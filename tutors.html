@@ -4,72 +4,85 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AION Agents SaaS – Tutors AI Learning Hub</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+  <!-- TailwindCSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {},
+      },
+    }
+  </script>
 </head>
-<body>
-  <header>
-    <div class="header-overlay"></div>
-    <div class="container header-container">
-      <h1>Tutors AI Learning Hub</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">HOME</a></li>
-          <li><a href="tutors.html">TUTORS</a></li>
-          <li><a href="portfolio.html">PORTFOLIO</a></li>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+  <!-- Header -->
+  <header class="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-orange-500 via-purple-500 to-blue-500 opacity-70 animate-gradient-x"></div>
+    <div class="relative z-10 container mx-auto text-center py-8">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">Tutors AI Learning Hub</h1>
+      <nav class="mb-4">
+        <ul class="flex justify-center space-x-6">
+          <li><a href="index.html" class="text-white font-semibold hover:text-yellow-300">HOME</a></li>
+          <li><a href="tutors.html" class="text-white font-semibold hover:text-yellow-300">TUTORS</a></li>
+          <li><a href="portfolio.html" class="text-white font-semibold hover:text-yellow-300">PORTFOLIO</a></li>
         </ul>
       </nav>
-      <button id="themeToggle" class="toggle-btn">Toggle Dark Mode</button>
+      <button id="themeToggle" class="bg-yellow-300 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-yellow-400">Toggle Dark Mode</button>
     </div>
   </header>
 
-  <main class="doc-main">
-    <div class="container">
+  <!-- Main Content -->
+  <main class="py-16">
+    <div class="container mx-auto">
       <!-- Tutorial 1 -->
-      <section class="doc-section">
-        <h2>Tutorial: Building an AI Chatbot</h2>
-        <div class="video-container">
-          <!-- Replace VIDEO_ID1 with the actual YouTube video ID -->
-          <iframe src="https://www.youtube.com/embed/VIDEO_ID1" allowfullscreen></iframe>
+      <section class="mb-12 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-bold mb-4">Tutorial: Building an AI Chatbot</h2>
+        <div class="mb-4">
+          <!-- Replace VIDEO_ID1 with your actual YouTube video ID -->
+          <div class="aspect-w-16 aspect-h-9">
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID1" allowfullscreen class="w-full h-full"></iframe>
+          </div>
         </div>
-        <h3>Summary</h3>
-        <p>This tutorial explains the fundamentals of building an AI chatbot using natural language processing and deep learning techniques.</p>
-        <h3>GitHub Repository</h3>
-        <p><a class="btn" href="https://github.com/your-username/ai-chatbot-tutorial" target="_blank">View on GitHub</a></p>
-        <h3>Comments</h3>
-        <div class="comments">
-          <textarea placeholder="Leave a comment..."></textarea>
-          <button class="btn">Post Comment</button>
+        <h3 class="text-xl font-semibold mb-2">Summary</h3>
+        <p class="mb-4">This tutorial explains the fundamentals of building an AI chatbot using natural language processing and deep learning techniques.</p>
+        <h3 class="text-xl font-semibold mb-2">GitHub Repository</h3>
+        <a href="https://github.com/your-username/ai-chatbot-tutorial" target="_blank" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">View on GitHub</a>
+        <h3 class="text-xl font-semibold mt-6 mb-2">Comments</h3>
+        <div class="space-y-4">
+          <textarea placeholder="Leave a comment..." class="w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"></textarea>
+          <button class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Post Comment</button>
         </div>
       </section>
 
       <!-- Tutorial 2 -->
-      <section class="doc-section">
-        <h2>Tutorial: Integrating Chatbots with Your Website</h2>
-        <div class="video-container">
-          <!-- Replace VIDEO_ID2 with the actual YouTube video ID -->
-          <iframe src="https://www.youtube.com/embed/VIDEO_ID2" allowfullscreen></iframe>
+      <section class="mb-12 bg-gray-50 dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-bold mb-4">Tutorial: Integrating Chatbots with Your Website</h2>
+        <div class="mb-4">
+          <!-- Replace VIDEO_ID2 with your actual YouTube video ID -->
+          <div class="aspect-w-16 aspect-h-9">
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID2" allowfullscreen class="w-full h-full"></iframe>
+          </div>
         </div>
-        <h3>Summary</h3>
-        <p>This video provides an overview of integrating chatbots into websites, including design tips, user engagement strategies, and technical implementation details.</p>
-        <h3>GitHub Repository</h3>
-        <p><a class="btn" href="https://github.com/your-username/chatbot-integration-tutorial" target="_blank">View on GitHub</a></p>
-        <h3>Comments</h3>
-        <div class="comments">
-          <textarea placeholder="Leave a comment..."></textarea>
-          <button class="btn">Post Comment</button>
+        <h3 class="text-xl font-semibold mb-2">Summary</h3>
+        <p class="mb-4">This video provides an overview of integrating chatbots into websites, including design tips, user engagement strategies, and technical implementation details.</p>
+        <h3 class="text-xl font-semibold mb-2">GitHub Repository</h3>
+        <a href="https://github.com/your-username/chatbot-integration-tutorial" target="_blank" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">View on GitHub</a>
+        <h3 class="text-xl font-semibold mt-6 mb-2">Comments</h3>
+        <div class="space-y-4">
+          <textarea placeholder="Leave a comment..." class="w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"></textarea>
+          <button class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Post Comment</button>
         </div>
       </section>
     </div>
   </main>
 
-  <footer>
-    <div class="container">
+  <!-- Footer -->
+  <footer class="py-8 bg-gray-800 text-white text-center">
+    <div class="container mx-auto">
       <p>&copy; 2025 AION Agents SaaS. All rights reserved.</p>
     </div>
   </footer>
-
   <script src="script.js"></script>
 </body>
 </html>

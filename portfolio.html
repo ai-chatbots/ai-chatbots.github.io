@@ -4,70 +4,79 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AION Agents SaaS – Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+  <!-- TailwindCSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {},
+      },
+    }
+  </script>
 </head>
-<body>
-  <header>
-    <div class="header-overlay"></div>
-    <div class="container header-container">
-      <h1>Portfolio</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">HOME</a></li>
-          <li><a href="tutors.html">TUTORS</a></li>
-          <li><a href="portfolio.html">PORTFOLIO</a></li>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+  <!-- Header -->
+  <header class="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-orange-500 via-purple-500 to-blue-500 opacity-70 animate-gradient-x"></div>
+    <div class="relative z-10 container mx-auto text-center py-8">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">Portfolio</h1>
+      <nav class="mb-4">
+        <ul class="flex justify-center space-x-6">
+          <li><a href="index.html" class="text-white font-semibold hover:text-yellow-300">HOME</a></li>
+          <li><a href="tutors.html" class="text-white font-semibold hover:text-yellow-300">TUTORS</a></li>
+          <li><a href="portfolio.html" class="text-white font-semibold hover:text-yellow-300">PORTFOLIO</a></li>
         </ul>
       </nav>
-      <button id="themeToggle" class="toggle-btn">Toggle Dark Mode</button>
+      <button id="themeToggle" class="bg-yellow-300 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-yellow-400">Toggle Dark Mode</button>
     </div>
   </header>
 
-  <main>
-    <section class="product-section">
-      <div class="container">
-        <h2>Coffee Shop Chatbot Mobile</h2>
-        <p>
-          A smart and interactive chatbot for coffee shop mobile applications.
-          <br>
-          <a class="btn" href="coffee-shop-chatbot-mobile.html">Learn More &rarr;</a>
-        </p>
-        <img src="HOME.png" alt="Coffee Shop Chatbot Mobile">
+  <!-- Main Content -->
+  <main class="py-16">
+    <!-- Coffee Shop Chatbot Mobile -->
+    <section class="py-12 text-center">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold mb-4">Coffee Shop Chatbot Mobile</h2>
+        <p class="mb-4">A smart and interactive chatbot for coffee shop mobile applications.</p>
+        <a href="coffee-shop-chatbot-mobile.html" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Learn More &rarr;</a>
+        <div class="mt-6">
+          <img src="https://via.placeholder.com/600x400" alt="Coffee Shop Chatbot Mobile" class="mx-auto rounded-md shadow-lg transform hover:scale-105 transition">
+        </div>
       </div>
     </section>
 
-    <section class="product-section alt-bg">
-      <div class="container">
-        <h2>AION VoiceAssist Mobile</h2>
-        <p>
-          An advanced voice assistant solution for mobile devices.
-          <br>
-          <a class="btn" href="aion-voiceassist-mobile.html">Learn More &rarr;</a>
-        </p>
-        <img src="AION-HOME.png" alt="AION VoiceAssist Mobile">
+    <!-- AION VoiceAssist Mobile -->
+    <section class="py-12 text-center bg-gray-50 dark:bg-gray-800">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold mb-4">AION VoiceAssist Mobile</h2>
+        <p class="mb-4">An advanced voice assistant solution for mobile devices.</p>
+        <a href="aion-voiceassist-mobile.html" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Learn More &rarr;</a>
+        <div class="mt-6">
+          <img src="https://via.placeholder.com/600x400" alt="AION VoiceAssist Mobile" class="mx-auto rounded-md shadow-lg transform hover:scale-105 transition">
+        </div>
       </div>
     </section>
 
-    <section class="product-section">
-      <div class="container">
-        <h2>Chatbot Integrate Popup</h2>
-        <p>
-          A versatile popup integration tool for embedding intelligent chatbots into your website.
-          <br>
-          <a class="btn" href="chatbot-integrate-popup.html">Learn More &rarr;</a>
-        </p>
-        <img src="popup.png" alt="Chatbot Integrate Popup">
+    <!-- Chatbot Integrate Popup -->
+    <section class="py-12 text-center">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold mb-4">Chatbot Integrate Popup</h2>
+        <p class="mb-4">A versatile popup integration tool for embedding intelligent chatbots into your website.</p>
+        <a href="chatbot-integrate-popup.html" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Learn More &rarr;</a>
+        <div class="mt-6">
+          <img src="https://via.placeholder.com/600x400" alt="Chatbot Integrate Popup" class="mx-auto rounded-md shadow-lg transform hover:scale-105 transition">
+        </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container">
+  <!-- Footer -->
+  <footer class="py-8 bg-gray-800 text-white text-center">
+    <div class="container mx-auto">
       <p>&copy; 2025 AION Agents SaaS. All rights reserved.</p>
     </div>
   </footer>
-
   <script src="script.js"></script>
 </body>
 </html>
