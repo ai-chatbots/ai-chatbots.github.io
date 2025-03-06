@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,23 +14,41 @@
         extend: {
           animation: {
             'gradient-x': 'gradientAnimation 15s ease infinite',
+            'marquee-slow': 'marquee 60s linear infinite',
+            'zoom': 'zoomAnimation 5s ease-in-out infinite'
           },
           keyframes: {
             gradientAnimation: {
               '0%': { 'background-position': '0% 50%' },
               '50%': { 'background-position': '100% 50%' },
-              '100%': { 'background-position': '0% 50%' },
+              '100%': { 'background-position': '0% 50%' }
             },
-          },
+            marquee: {
+              '0%': { transform: 'translateX(100%)' },
+              '100%': { transform: 'translateX(-100%)' }
+            },
+            zoomAnimation: {
+              '0%, 100%': { transform: 'scale(1)' },
+              '50%': { transform: 'scale(1.05)' }
+            }
+          }
         },
       },
     }
   </script>
 </head>
+
 <body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+  <!-- Top Bar with Login & Sign Up (common way) -->
+  <div class="absolute top-0 right-0 mt-4 mr-4 z-20 space-x-4">
+    <a href="#" class="text-white font-semibold hover:text-yellow-300">Login</a>
+    <a href="#" class="text-white font-semibold hover:text-yellow-300">Sign Up</a>
+  </div>
   <!-- Header with animated gradient overlay -->
   <header class="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-r from-orange-500 via-purple-500 to-blue-500 opacity-70 animate-gradient-x"></div>
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-orange-500 via-purple-500 to-blue-500 opacity-70 animate-gradient-x">
+    </div>
     <div class="relative z-10 container mx-auto text-center py-8">
       <h1 class="text-4xl md:text-6xl font-bold mb-4">AION Agents SaaS</h1>
       <nav class="mb-4">
@@ -39,62 +58,173 @@
           <li><a href="portfolio.html" class="text-white font-semibold hover:text-yellow-300">PORTFOLIO</a></li>
         </ul>
       </nav>
-      <button id="themeToggle" class="bg-yellow-300 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-yellow-400">Toggle Dark Mode</button>
+      <button id="themeToggle"
+        class="bg-yellow-300 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-yellow-400">Toggle Dark
+        Mode</button>
     </div>
   </header>
 
   <!-- Main Content -->
   <main>
-    <!-- Hero Section -->
+    <!-- Marquee Section for Integrations (Tiny Line that Slowly Plays) -->
+    <section class="py-4 bg-gray-100 dark:bg-gray-800 overflow-hidden">
+      <div class="whitespace-nowrap animate-marquee-slow">
+        <span class="mx-4 font-semibold text-red-500">Seamless CRM integration</span>
+        <span class="mx-4 font-semibold text-green-500">AI-powered NLP</span>
+        <span class="mx-4 font-semibold text-blue-500">Real-time analytics</span>
+        <span class="mx-4 font-semibold text-yellow-500">Customizable branding</span>
+        <span class="mx-4 font-semibold text-purple-500">Multi-platform support</span>
+      </div>
+    </section>
+
+    <!-- Hero Section with Email Signup -->
     <section class="py-16 text-center">
       <div class="container mx-auto">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">Empower Your Business with AI Chatbots</h2>
-        <p class="text-lg mb-8">Experience live demos, explore key features, and subscribe to transform your customer interactions.</p>
-        <a href="#pricing" class="inline-block bg-orange-500 text-white py-3 px-6 rounded-full font-semibold hover:bg-orange-600">Subscribe Now &rarr;</a>
+        <div class="flex justify-center items-center space-x-2">
+          <input type="email" placeholder="Enter your email"
+            class="border border-gray-300 p-3 rounded-full focus:outline-none" />
+          <button class="bg-orange-500 text-white py-3 px-6 rounded-full font-semibold hover:bg-orange-600">Sign Up Free
+            1 Month</button>
+        </div>
       </div>
     </section>
 
     <!-- Live Chatbot Demos Section -->
     <section class="py-16 bg-gray-50 dark:bg-gray-800">
-      <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-8">Live Chatbot Demos</h2>
-        <div class="flex flex-wrap justify-center gap-8">
-          <!-- FAQ Bot Card -->
-          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
-            <h3 class="text-xl font-semibold mb-2">FAQ Bot</h3>
-            <img src="https://via.placeholder.com/300x200" alt="FAQ Bot Demo" class="rounded-md mb-4">
-            <p class="mb-4">Interactive demo of our FAQ chatbot.</p>
-            <a href="#demo-faq" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Try Demo</a>
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-8">Live Chatbot Demos</h2>
+        <div class="flex justify-center gap-8">
+          <!-- Chatbot Demo 1 -->
+          <div class="flex flex-col items-center">
+            <img src="images/FAQ.png" alt="FAQ Chatbot"
+              class="w-32 md:w-40 rounded-md shadow-lg hover:scale-105 transform transition">
+            <p class="mt-2 font-semibold">FAQ Chatbot</p>
           </div>
-          <!-- Sales Bot Card -->
-          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
-            <h3 class="text-xl font-semibold mb-2">Sales Bot</h3>
-            <img src="https://via.placeholder.com/300x200" alt="Sales Bot Demo" class="rounded-md mb-4">
-            <p class="mb-4">Boost your sales with our intelligent Sales Bot.</p>
-            <a href="#demo-sales" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Try Demo</a>
+          <!-- Chatbot Demo 2 -->
+          <div class="flex flex-col items-center">
+            <img src="images/SALES.png" alt="Sales Chatbot"
+              class="w-32 md:w-40 rounded-md shadow-lg hover:scale-105 transform transition">
+            <p class="mt-2 font-semibold">Sales Chatbot</p>
           </div>
-          <!-- Support Bot Card -->
-          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
-            <h3 class="text-xl font-semibold mb-2">Support Bot</h3>
-            <img src="https://via.placeholder.com/300x200" alt="Support Bot Demo" class="rounded-md mb-4">
-            <p class="mb-4">Enhance customer support with our 24/7 Support Bot.</p>
-            <a href="#demo-support" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Try Demo</a>
+          <!-- Chatbot Demo 3 -->
+          <div class="flex flex-col items-center">
+            <img src="images/SUPPORT.png" alt="Support Chatbot"
+              class="w-32 md:w-40 rounded-md shadow-lg hover:scale-105 transform transition">
+            <p class="mt-2 font-semibold">Support Chatbot</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- Live Voice Assistant Demos Section -->
+    <section class="py-16 bg-gray-100 dark:bg-gray-700">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-8">Live Voice Assistant Demos</h2>
+        <div class="flex justify-center gap-8">
+          <!-- Voice Assistant Demo 1 -->
+          <div class="flex flex-col items-center">
+            <img src="images/SPEECH-TO-TEXT.png" alt="Voice Assistant 1"
+              class="w-32 md:w-40 rounded-md shadow-lg hover:scale-105 transform transition">
+            <p class="mt-2 font-semibold">Voice Assistant 1</p>
+          </div>
+          <!-- Voice Assistant Demo 2 -->
+          <div class="flex flex-col items-center">
+            <img src="images/TEXT-TO SPEECH.png" alt="Voice Assistant 2"
+              class="w-32 md:w-40 rounded-md shadow-lg hover:scale-105 transform transition">
+            <p class="mt-2 font-semibold">Voice Assistant 2</p>
+          </div>
+          <!-- Voice Assistant Demo 3 -->
+          <div class="flex flex-col items-center">
+            <img src="images/TEAM-SUMMARY.png" alt="Voice Assistant 3"
+              class="w-32 md:w-40 rounded-md shadow-lg hover:scale-105 transform transition">
+            <p class="mt-2 font-semibold">Voice Assistant 3</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- Combined Integrations & Getting Started Section -->
+<section class="py-16">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-8">Integrations & Getting Started</h2>
+    <!-- Getting Started / Client Journey Timeline -->
+    <div>
+      <h3 class="text-2xl font-semibold text-center mb-4">What Does a Client Need to Start Using the Chatbot?</h3>
+      <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4">
+        <!-- Step 1: Sign up -->
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 flex items-center justify-center bg-orange-500 text-white rounded-full font-bold">1</div>
+          <p class="mt-2 text-center text-sm">Sign up<br><span class="font-light">Create an account on AION-Chatbots</span></p>
+        </div>
+        <!-- Connector -->
+        <div class="hidden md:block h-1 w-8 bg-gray-400"></div>
+        <!-- Step 2: Choose Plan -->
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 flex items-center justify-center bg-orange-500 text-white rounded-full font-bold">2</div>
+          <p class="mt-2 text-center text-sm">Choose Plan<br><span class="font-light">Select a monthly subscription</span></p>
+        </div>
+        <div class="hidden md:block h-1 w-8 bg-gray-400"></div>
+        <!-- Step 3: Upload Data -->
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 flex items-center justify-center bg-orange-500 text-white rounded-full font-bold">3</div>
+          <p class="mt-2 text-center text-sm">Upload Data<br><span class="font-light">Train with FAQs, PDFs, product details</span></p>
+        </div>
+        <div class="hidden md:block h-1 w-8 bg-gray-400"></div>
+        <!-- Step 4: Integrate -->
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 flex items-center justify-center bg-orange-500 text-white rounded-full font-bold">4</div>
+          <p class="mt-2 text-center text-sm">Integrate<br><span class="font-light">Embed on website, WhatsApp, Telegram, or API</span></p>
+        </div>
+        <div class="hidden md:block h-1 w-8 bg-gray-400"></div>
+        <!-- Step 5: Test & Optimize -->
+        <div class="flex flex-col items-center">
+          <div class="w-16 h-16 flex items-center justify-center bg-orange-500 text-white rounded-full font-bold">5</div>
+          <p class="mt-2 text-center text-sm">Test & Optimize<br><span class="font-light">Adjust responses and review analytics</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- FAQ Interactive Section (Two Columns) -->
     <section class="py-16">
       <div class="container mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-6">Features & Integrations</h2>
-        <ul class="space-y-3 text-lg">
-          <li>Seamless CRM integration</li>
-          <li>AI-powered natural language processing</li>
-          <li>Real-time analytics &amp; reporting</li>
-          <li>Customizable responses &amp; branding</li>
-          <li>Multi-platform support (web, mobile, social)</li>
-        </ul>
+        <h2 class="text-3xl font-bold mb-4">FAQ Interactive</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- FAQ 1 -->
+          <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded shadow">
+            <h3 class="font-bold">What is AION Agents SaaS?</h3>
+            <p>A platform delivering AI-powered chatbots and voice assistants for business transformation.</p>
+          </div>
+          <!-- FAQ 2 -->
+          <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded shadow">
+            <h3 class="font-bold">How do I subscribe?</h3>
+            <p>Sign up for a free 1-month trial by entering your email in the signup section above.</p>
+          </div>
+          <!-- FAQ 3 -->
+          <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded shadow">
+            <h3 class="font-bold">What features are included?</h3>
+            <p>Our platform offers CRM integrations, real-time analytics, customizable responses, and more.</p>
+          </div>
+          <!-- FAQ 4 -->
+          <div class="p-4 bg-gray-50 dark:bg-gray-800 rounded shadow">
+            <h3 class="font-bold">Can I upgrade later?</h3>
+            <p>Yes, you can change or upgrade your plan anytime via your account dashboard.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marquee Section for Features (Tiny Line that Slowly Plays, Slower & More Colourful) -->
+    <section class="py-4 bg-gray-100 dark:bg-gray-800 overflow-hidden">
+      <div class="whitespace-nowrap animate-marquee-slow">
+        <span class="mx-4 font-semibold text-pink-500">Seamless CRM integration</span>
+        <span class="mx-4 font-semibold text-green-500">AI-powered NLP</span>
+        <span class="mx-4 font-semibold text-blue-500">Real-time analytics</span>
+        <span class="mx-4 font-semibold text-yellow-500">Customizable branding</span>
+        <span class="mx-4 font-semibold text-purple-500">Multi-platform support</span>
       </div>
     </section>
 
@@ -104,7 +234,8 @@
         <h2 class="text-3xl font-bold mb-8">Pricing &amp; Subscription</h2>
         <div class="flex flex-wrap justify-center gap-8">
           <!-- Basic Plan -->
-          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
+          <div
+            class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
             <h3 class="text-2xl font-bold mb-2">Basic</h3>
             <p class="text-3xl font-semibold mb-4">$29/month</p>
             <ul class="text-left space-y-2 mb-4">
@@ -112,10 +243,12 @@
               <li>Basic integrations</li>
               <li>Email support</li>
             </ul>
-            <a href="#subscribe" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Subscribe</a>
+            <a href="#subscribe"
+              class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Subscribe</a>
           </div>
           <!-- Pro Plan -->
-          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
+          <div
+            class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
             <h3 class="text-2xl font-bold mb-2">Pro</h3>
             <p class="text-3xl font-semibold mb-4">$59/month</p>
             <ul class="text-left space-y-2 mb-4">
@@ -123,10 +256,12 @@
               <li>Advanced analytics</li>
               <li>Priority support</li>
             </ul>
-            <a href="#subscribe" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Subscribe</a>
+            <a href="#subscribe"
+              class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Subscribe</a>
           </div>
           <!-- Enterprise Plan -->
-          <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
+          <div
+            class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
             <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
             <p class="text-3xl font-semibold mb-4">Contact Us</p>
             <ul class="text-left space-y-2 mb-4">
@@ -134,11 +269,13 @@
               <li>Dedicated account manager</li>
               <li>24/7 support</li>
             </ul>
-            <a href="#subscribe" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Contact Sales</a>
+            <a href="#subscribe"
+              class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Contact Sales</a>
           </div>
         </div>
       </div>
     </section>
+
   </main>
 
   <!-- Footer -->
@@ -149,4 +286,5 @@
   </footer>
   <script src="script.js"></script>
 </body>
+
 </html>
