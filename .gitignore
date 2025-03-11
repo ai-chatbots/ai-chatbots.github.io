@@ -1,0 +1,60 @@
+# Ignore backend virtual environment
+backend/venv/
+.env
+.env.local
+*.env
+
+# Python bytecode and cache
+backend/__pycache__/
+backend/**/*.py[cod]
+backend/*$py.class
+
+# Logs and database files
+backend/logs/
+backend/*.log
+backend/*.out
+backend/*.err
+backend/*.sqlite3
+backend/*.db
+backend/*.db-journal
+backend/migrations/
+
+# Cache and temp files
+backend/*.cache
+backend/*.bak
+backend/*.swp
+backend/*.swo
+.DS_Store
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.iml
+
+# Python dependency files
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Jupyter Notebook checkpoints
+backend/.ipynb_checkpoints/
+
+# Coverage reports
+backend/htmlcov/
+backend/*.cover
+backend/*.coverage
+backend/.coverage.*
+backend/*.py,cover
+backend/.coverage.xml
+backend/nosetests.xml
+backend/test-results.xml
+
+# Docker
+docker-compose.override.yml
+*.dockerfile
+*.dockerenv
+docker-build/
+
+# FastAPI specific
+backend/instance/
+backend/gunicorn_error.log
+backend/gunicorn_access.log
