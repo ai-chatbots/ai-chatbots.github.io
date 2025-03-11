@@ -43,21 +43,6 @@ header {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-/* New: Header Text Color Animation */
-@keyframes textColorChange {
-  0% { color: #ff4b4b; }
-  25% { color: #4bff4b; }
-  50% { color: #4b4bff; }
-  75% { color: #ffff4b; }
-  100% { color: #ff4b4b; }
-}
-header h1 {
-  font-size: 3em;
-  margin-bottom: 15px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-  /* Apply text color animation */
-  animation: textColorChange 10s linear infinite;
-}
 /* Container */
 .container {
   width: 90%;
@@ -71,6 +56,11 @@ header h1 {
   padding: 40px 0;
   position: relative;
   z-index: 1;
+}
+header h1 {
+  font-size: 3em;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
 }
 nav ul {
   list-style: none;
@@ -310,4 +300,22 @@ footer {
   text-align: center;
   padding: 20px 0;
   margin-top: 40px;
+}
+
+/* Modal Styles */
+#loginModal, #signupModal {
+  /* Fixed full-screen overlay */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.5);
+}
+#loginModal.hidden, #signupModal.hidden {
+  display: none;
 }

@@ -41,8 +41,8 @@
 <body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
   <!-- Top Bar with Login & Sign Up -->
   <div class="absolute top-0 right-0 mt-4 mr-4 z-20 space-x-4">
-    <a href="#" class="text-white font-semibold hover:text-yellow-300">Login</a>
-    <a href="#" class="text-white font-semibold hover:text-yellow-300">Sign Up</a>
+    <a href="#" id="openLoginModal" class="text-white font-semibold hover:text-yellow-300">Login</a>
+    <a href="#" id="openSignupModal" class="text-white font-semibold hover:text-yellow-300">Sign Up</a>
   </div>
 
   <!-- Shared Header with Animated Gradient Overlay -->
@@ -81,7 +81,8 @@
       <div class="container mx-auto">
         <h2 class="text-3xl md:text-4xl font-bold mb-4">Empower Your Business with AI Chatbots</h2>
         <div class="flex justify-center items-center space-x-2">
-          <input type="email" placeholder="Enter your email" class="border border-gray-300 p-3 rounded-full focus:outline-none" />
+          <input type="email" placeholder="Enter your email"
+            class="border border-gray-300 p-3 rounded-full focus:outline-none" />
           <button class="bg-orange-500 text-white py-3 px-6 rounded-full font-semibold hover:bg-orange-600">
             Sign Up Free 1 Month
           </button>
@@ -200,6 +201,27 @@
       </div>
     </section>
 
+    <!-- Dashboard Section -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-800">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-8">User Dashboard</h2>
+        <div id="dashboard" class="flex justify-center space-x-4 mb-8">
+          <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('strategy')">
+            Strategy
+          </button>
+          <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('analytics')">
+            Analytics
+          </button>
+          <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('settings')">
+            Settings
+          </button>
+        </div>
+        <div id="dashboardContent" class="p-4 bg-white dark:bg-gray-700 rounded shadow">
+          <p>Click on a button above to view dashboard content.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- FAQ Interactive Section (Two Columns) -->
     <section class="py-16">
       <div class="container mx-auto text-center">
@@ -254,7 +276,9 @@
               <li>Basic integrations</li>
               <li>Email support</li>
             </ul>
-            <a href="#subscribe" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Subscribe</a>
+            <a href="#subscribe" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">
+              Subscribe
+            </a>
           </div>
           <!-- Pro Plan -->
           <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
@@ -265,7 +289,9 @@
               <li>Advanced analytics</li>
               <li>Priority support</li>
             </ul>
-            <a href="#subscribe" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Subscribe</a>
+            <a href="#subscribe" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">
+              Subscribe
+            </a>
           </div>
           <!-- Enterprise Plan -->
           <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 w-80 transform hover:-translate-y-1 transition">
@@ -276,7 +302,9 @@
               <li>Dedicated account manager</li>
               <li>24/7 support</li>
             </ul>
-            <a href="#subscribe" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Contact Sales</a>
+            <a href="#subscribe" class="inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">
+              Contact Sales
+            </a>
           </div>
         </div>
       </div>
@@ -289,9 +317,36 @@
       <p>&copy; 2025 AION Chatbots SaaS. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 relative">
+      <button class="absolute top-2 right-2 text-gray-600" id="closeLoginModal">&times;</button>
+      <h2 class="text-xl font-bold mb-4">Login</h2>
+      <form>
+        <input type="email" placeholder="Email" class="w-full border border-gray-300 p-2 rounded mb-4">
+        <input type="password" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-4">
+        <button type="submit" class="w-full bg-orange-500 text-white p-2 rounded">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Sign Up Modal -->
+  <div id="signupModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 relative">
+      <button class="absolute top-2 right-2 text-gray-600" id="closeSignupModal">&times;</button>
+      <h2 class="text-xl font-bold mb-4">Sign Up</h2>
+      <form>
+        <input type="text" placeholder="Name" class="w-full border border-gray-300 p-2 rounded mb-4">
+        <input type="email" placeholder="Email" class="w-full border border-gray-300 p-2 rounded mb-4">
+        <input type="password" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-4">
+        <button type="submit" class="w-full bg-orange-500 text-white p-2 rounded">Sign Up</button>
+      </form>
+    </div>
+  </div>
+
   <script src="script.js"></script>
   <!-- Optional Widget Script -->
   <script src="http://127.0.0.1:8000/static/widget.js" async></script>
 </body>
-
 </html>
