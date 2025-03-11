@@ -14,13 +14,13 @@
   });
 })();
 
-// Interactive Dashboard Functionality (if used in pages with dashboard)
+// Interactive Dashboard Functionality
 function showDashboardContent(section) {
   const dashboardContent = document.getElementById('dashboardContent');
   if (!dashboardContent) return;
   let content = '';
   switch(section) {
-    case 'strategy':  // Renamed from 'overview' to 'strategy'
+    case 'strategy':
       content = '<h3 class="text-xl font-bold mb-2">Strategy</h3><p>This is the dashboard strategy content.</p>';
       break;
     case 'analytics':
