@@ -321,10 +321,11 @@
     <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 relative">
       <button class="absolute top-2 right-2 text-gray-600" id="closeLoginModal">&times;</button>
       <h2 class="text-xl font-bold mb-4">Login</h2>
-      <form>
-        <input type="email" placeholder="Email" class="w-full border border-gray-300 p-2 rounded mb-4">
-        <input type="password" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-4">
+      <form id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Email" class="w-full border border-gray-300 p-2 rounded mb-4" required>
+        <input type="password" id="loginPassword" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-4" required>
         <button type="submit" class="w-full bg-orange-500 text-white p-2 rounded">Login</button>
+        <p id="loginError" class="text-red-500 text-sm mt-2"></p>
       </form>
     </div>
   </div>
@@ -334,11 +335,12 @@
     <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 relative">
       <button class="absolute top-2 right-2 text-gray-600" id="closeSignupModal">&times;</button>
       <h2 class="text-xl font-bold mb-4">Sign Up</h2>
-      <form>
-        <input type="text" placeholder="Name" class="w-full border border-gray-300 p-2 rounded mb-4">
-        <input type="email" placeholder="Email" class="w-full border border-gray-300 p-2 rounded mb-4">
-        <input type="password" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-4">
+      <form id="signupForm">
+        <input type="text" id="signupName" placeholder="Name" class="w-full border border-gray-300 p-2 rounded mb-4" required>
+        <input type="email" id="signupEmail" placeholder="Email" class="w-full border border-gray-300 p-2 rounded mb-4" required>
+        <input type="password" id="signupPassword" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-4" required>
         <button type="submit" class="w-full bg-orange-500 text-white p-2 rounded">Sign Up</button>
+        <p id="signupError" class="text-red-500 text-sm mt-2"></p>
       </form>
     </div>
   </div>

@@ -1,11 +1,9 @@
 // Dark mode toggle with localStorage support using Tailwind's dark mode classes
 (function() {
   const toggleBtns = document.querySelectorAll('#themeToggle');
-  // Apply saved preference to document root
   if (localStorage.getItem('darkMode') === 'true') {
     document.documentElement.classList.add('dark');
   }
-  // Attach event listener to each toggle button found
   toggleBtns.forEach(toggleBtn => {
     toggleBtn.addEventListener('click', function() {
       document.documentElement.classList.toggle('dark');
@@ -14,7 +12,7 @@
   });
 })();
 
-// Interactive Dashboard Functionality
+// Dashboard Functionality
 function showDashboardContent(section) {
   const dashboardContent = document.getElementById('dashboardContent');
   if (!dashboardContent) return;
@@ -33,4 +31,107 @@ function showDashboardContent(section) {
       content = '<p>Click on a button above to view dashboard content.</p>';
   }
   dashboardContent.innerHTML = content;
+}
+
+// ---------- Authentication Handling ----------
+
+// Helper function to show error messages
+function showError(elementId, message) {
+  document.getElementById(elementId).textContent = message;
+}
+
+// Login form handling
+const loginForm = document.getElementById('loginForm');
+if (loginForm) {
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    showError('loginError', '');
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    try {
+      const response = await fetch('http://127.0.0.1:8000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        showError('loginError', data.detail || 'Login failed');
+      } else {
+        // Save token (for example, in localStorage)
+        localStorage.setItem('access_token', data.access_token);
+        alert('Login successful!');
+        // Optionally close modal
+        document.getElementById('loginModal').classList.add('hidden');
+      }
+    } catch (error) {
+      showError('loginError', 'Network error. Please try again.');
+    }
+  });
+}
+
+// Sign Up form handling
+const signupForm = document.getElementById('signupForm');
+if (signupForm) {
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    showError('signupError', '');
+    const full_name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    try {
+      const response = await fetch('http://127.0.0.1:8000/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ full_name, email, password })
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        showError('signupError', data.detail || 'Sign up failed');
+      } else {
+        alert('Sign up successful! You can now log in.');
+        // Optionally close modal
+        document.getElementById('signupModal').classList.add('hidden');
+      }
+    } catch (error) {
+      showError('signupError', 'Network error. Please try again.');
+    }
+  });
+}
+
+// ---------- Modal Toggle Handling ----------
+
+const loginModal = document.getElementById('loginModal');
+const signupModal = document.getElementById('signupModal');
+const openLoginModal = document.getElementById('openLoginModal');
+const openSignupModal = document.getElementById('openSignupModal');
+const closeLoginModal = document.getElementById('closeLoginModal');
+const closeSignupModal = document.getElementById('closeSignupModal');
+
+if (openLoginModal) {
+  openLoginModal.addEventListener('click', () => {
+    loginModal.classList.remove('hidden');
+  });
+}
+
+if (openSignupModal) {
+  openSignupModal.addEventListener('click', () => {
+    signupModal.classList.remove('hidden');
+  });
+}
+
+if (closeLoginModal) {
+  closeLoginModal.addEventListener('click', () => {
+    loginModal.classList.add('hidden');
+  });
+}
+
+if (closeSignupModal) {
+  closeSignupModal.addEventListener('click', () => {
+    signupModal.classList.add('hidden');
+  });
 }
