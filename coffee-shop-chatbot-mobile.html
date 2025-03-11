@@ -1,40 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Coffee Shop Chatbot Mobile | AION Agents</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet" />
+  <!-- TailwindCSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          animation: {
+            'gradient-x': 'gradientAnimation 15s ease infinite',
+            'marquee-slow': 'marquee 60s linear infinite',
+            'zoom': 'zoomAnimation 5s ease-in-out infinite'
+          },
+          keyframes: {
+            gradientAnimation: {
+              '0%': { 'background-position': '0% 50%' },
+              '50%': { 'background-position': '100% 50%' },
+              '100%': { 'background-position': '0% 50%' }
+            },
+            marquee: {
+              '0%': { transform: 'translateX(100%)' },
+              '100%': { transform: 'translateX(-100%)' }
+            },
+            zoomAnimation: {
+              '0%, 100%': { transform: 'scale(1)' },
+              '50%': { transform: 'scale(1.05)' }
+            }
+          }
+        },
+      },
+    }
+  </script>
 </head>
-<body>
-  <header>
-    <div class="header-overlay"></div>
-    <div class="container header-container">
-      <h1>Coffee Shop Chatbot Mobile</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">&larr; Back Home</a></li>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+  <!-- Shared Header with Back Link -->
+  <header class="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-orange-500 via-purple-500 to-blue-500 opacity-70 animate-gradient-x"></div>
+    <div class="relative z-10 container mx-auto text-center py-8">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">Coffee Shop Chatbot Mobile</h1>
+      <nav class="mb-4">
+        <ul class="flex justify-center space-x-6">
+          <li><a href="index.html" class="text-white font-semibold hover:text-yellow-300">&larr; Back Home</a></li>
         </ul>
       </nav>
-      <button id="themeToggle" class="toggle-btn">Toggle Dark Mode</button>
+      <button id="themeToggle" class="bg-yellow-300 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-yellow-400">
+        Toggle Dark Mode
+      </button>
     </div>
   </header>
-
-  <main class="doc-main">
-    <div class="container">
-      <section class="doc-section">
-        <h2>Overview</h2>
-        <p>
-          This documentation covers the code, theory, and design decisions behind the Coffee Shop Chatbot Mobile project.
-        </p>
+  
+  <!-- Main Content -->
+  <main class="doc-main py-16">
+    <div class="container mx-auto">
+      <!-- Overview Section -->
+      <section class="doc-section mb-8">
+         <h2 class="text-3xl font-bold mb-4">Overview</h2>
+         <p>This documentation covers the code, theory, and design decisions behind the Coffee Shop Chatbot Mobile project.</p>
       </section>
-      
-      <section class="doc-section">
-        <h2>Code Example</h2>
-        <button class="toggle-code-btn" onclick="toggleCode('codeBlock1')">Show/Hide Code Example</button>
-        <pre id="codeBlock1" class="code-block">
+      <!-- Code Example Section -->
+      <section class="doc-section mb-8">
+         <h2 class="text-3xl font-bold mb-4">Code Example</h2>
+         <button class="toggle-code-btn bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 mb-4" onclick="toggleCode('codeBlock1')">Show/Hide Code Example</button>
+         <pre id="codeBlock1" class="code-block bg-gray-100 p-4 rounded overflow-x-auto">
 /* Simple chatbot response logic */
 function getChatbotResponse(message) {
   if (message.toLowerCase().includes("coffee")) {
@@ -42,24 +73,22 @@ function getChatbotResponse(message) {
   }
   return "How can I help you today?";
 }
-        </pre>
+         </pre>
       </section>
-
+      <!-- Theory Section -->
       <section class="doc-section">
-        <h2>Theory</h2>
-        <p>
-          The chatbot leverages natural language processing basics to detect keywords and respond accordingly. Future improvements include integrating with an AI language model.
-        </p>
+         <h2 class="text-3xl font-bold mb-4">Theory</h2>
+         <p>The chatbot leverages natural language processing to detect keywords and respond accordingly. Future improvements include integrating with an AI language model.</p>
       </section>
     </div>
   </main>
-
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 AION Agents. All rights reserved.</p>
-    </div>
-  </footer>
   
+  <!-- Footer -->
+  <footer class="py-8 bg-gray-800 text-white text-center">
+     <div class="container mx-auto">
+       <p>&copy; 2025 AION Agents. All rights reserved.</p>
+     </div>
+  </footer>
   <script src="script.js"></script>
 </body>
 </html>

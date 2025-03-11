@@ -1,18 +1,20 @@
 // Dark mode toggle with localStorage support using Tailwind's dark mode classes
 (function() {
-  const toggleBtn = document.getElementById('themeToggle');
-  if (toggleBtn) {
-    if (localStorage.getItem('darkMode') === 'true') {
-      document.documentElement.classList.add('dark');
-    }
+  const toggleBtns = document.querySelectorAll('#themeToggle');
+  // Apply saved preference to document root
+  if (localStorage.getItem('darkMode') === 'true') {
+    document.documentElement.classList.add('dark');
+  }
+  // Attach event listener to each toggle button found
+  toggleBtns.forEach(toggleBtn => {
     toggleBtn.addEventListener('click', function() {
       document.documentElement.classList.toggle('dark');
       localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
     });
-  }
+  });
 })();
 
-// Interactive Dashboard Functionality
+// Interactive Dashboard Functionality (if used in pages with dashboard)
 function showDashboardContent(section) {
   const dashboardContent = document.getElementById('dashboardContent');
   if (!dashboardContent) return;

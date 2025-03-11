@@ -12,13 +12,11 @@ body {
   transition: background 0.4s ease, color 0.4s ease;
   overflow-x: hidden;
 }
-
 /* Dark mode styles */
 body.dark-mode {
   background: #121212;
   color: #ddd;
 }
-
 /* Header & Animated Gradient Overlay */
 header {
   position: relative;
@@ -45,16 +43,6 @@ header {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-
-/* New header color changing animation */
-@keyframes headerColor {
-  0% { color: #ff0000; }    /* Red */
-  25% { color: #ff7f00; }   /* Orange */
-  50% { color: #ffff00; }   /* Yellow */
-  75% { color: #00ff00; }   /* Green */
-  100% { color: #ff0000; }  /* Red */
-}
-
 /* Container */
 .container {
   width: 90%;
@@ -62,7 +50,6 @@ header {
   margin: auto;
   padding: 0 15px;
 }
-
 /* Header Container */
 .header-container {
   text-align: center;
@@ -74,8 +61,6 @@ header h1 {
   font-size: 3em;
   margin-bottom: 15px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-  /* Smoothly changing header text colors */
-  animation: headerColor 10s linear infinite;
 }
 nav ul {
   list-style: none;
@@ -111,7 +96,6 @@ nav ul li a:hover {
   background: #fdcb6e;
   transform: scale(1.05);
 }
-
 /* Hero Section (Home) */
 .hero {
   padding: 80px 0;
@@ -126,7 +110,6 @@ nav ul li a:hover {
   font-size: 1.2em;
   margin-bottom: 30px;
 }
-
 /* Live Demos Section */
 .live-demos {
   padding: 60px 0;
@@ -162,7 +145,6 @@ nav ul li a:hover {
 .demo-cards .card h3 {
   margin-bottom: 10px;
 }
-
 /* Features Section */
 .features {
   padding: 60px 0;
@@ -179,7 +161,6 @@ nav ul li a:hover {
 .feature-list li {
   margin: 10px 0;
 }
-
 /* Pricing Section */
 .pricing {
   padding: 60px 0;
@@ -223,7 +204,6 @@ nav ul li a:hover {
 .pricing-cards .card ul li {
   margin: 8px 0;
 }
-
 /* Portfolio Product Sections */
 .product-section {
   padding: 60px 0;
@@ -257,7 +237,6 @@ nav ul li a:hover {
 .product-section img:hover {
   transform: scale(1.05);
 }
-
 /* Documentation (Tutors) Page */
 .doc-main {
   padding: 60px 0;
@@ -298,7 +277,6 @@ nav ul li a:hover {
   resize: vertical;
   margin-bottom: 10px;
 }
-
 /* Common Button Styles */
 .btn {
   display: inline-block;
@@ -315,7 +293,6 @@ nav ul li a:hover {
   background: #d35400;
   transform: scale(1.05);
 }
-
 /* Footer */
 footer {
   background: #222;
