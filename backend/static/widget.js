@@ -2,9 +2,10 @@
     const CHATBOT_URL = "http://127.0.0.1:8000";  // Replace with your server domain if needed
     const sessionId = "session_" + Math.floor(Math.random() * 1000000);
 
-    // 🔹 Inject Styles
+    // ---------- Inject Styles ----------
     const style = document.createElement("style");
     style.innerHTML = `
+        /* Expanded chat widget styles */
         #chatbot-widget {
             position: fixed;
             bottom: 20px;
@@ -16,7 +17,7 @@
             background: white;
             font-family: Arial, sans-serif;
             overflow: hidden;
-            display: flex;
+            display: none;  /* Initially hidden */
             flex-direction: column;
             z-index: 1000;
         }
@@ -27,16 +28,15 @@
             font-size: 16px;
             text-align: center;
             position: relative;
-            cursor: pointer;
         }
-        #chatbot-header button {
+        #chatbot-header .close-btn {
             position: absolute;
             right: 10px;
             top: 5px;
             background: transparent;
             border: none;
             color: white;
-            font-size: 14px;
+            font-size: 20px;
             cursor: pointer;
         }
         #chatbot-box {
@@ -92,7 +92,7 @@
             text-align: center;
             display: none;
         }
-        /* Mobile styles */
+        /* Mobile styles for expanded widget */
         @media (max-width: 480px) {
             #chatbot-widget {
                 width: 90%;
@@ -109,16 +109,39 @@
                 width: 100%;
             }
         }
+        /* Minimized widget (circle) styles */
+        #chatbot-minimized {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #00529B;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 1000;
+        }
     `;
     document.head.appendChild(style);
 
-    // 🔹 Create Widget
+    // ---------- Create Minimized Widget (Circle) ----------
+    const chatbotMinimized = document.createElement("div");
+    chatbotMinimized.id = "chatbot-minimized";
+    chatbotMinimized.innerHTML = "💬";
+    document.body.appendChild(chatbotMinimized);
+
+    // ---------- Create Expanded Chat Widget ----------
     const chatbotWidget = document.createElement("div");
     chatbotWidget.id = "chatbot-widget";
     chatbotWidget.innerHTML = `
         <div id="chatbot-header">
-            💬 Chat with us!
-            <button id="chatbot-clear-btn">Clear</button>
+            Chat with us!
+            <button class="close-btn" id="chatbot-close-btn">&times;</button>
         </div>
         <div id="chatbot-box"></div>
         <div id="typing-indicator">Bot is typing...</div>
@@ -130,12 +153,13 @@
     `;
     document.body.appendChild(chatbotWidget);
 
+    // ---------- Define Variables for Expanded Widget ----------
     const chatBox = document.getElementById("chatbot-box");
     const typingIndicator = document.getElementById("typing-indicator");
     const inputField = document.getElementById("chatbot-input");
     const sendButton = document.getElementById("chatbot-send-btn");
     const voiceButton = document.getElementById("chatbot-voice-btn");
-    const clearButton = document.getElementById("chatbot-clear-btn");
+    const closeButton = document.getElementById("chatbot-close-btn");
 
     function appendMessage(text, isUser = false) {
         const messageDiv = document.createElement("div");
@@ -243,6 +267,7 @@
     }
 
     // ---------- Clear Chat Feature ----------
+    const clearButton = document.getElementById("chatbot-clear-btn");
     if (clearButton) {
         clearButton.addEventListener("click", () => {
             chatBox.innerHTML = "";
@@ -269,4 +294,17 @@
     }
 
     fetchChatHistory();
+
+    // ---------- Toggle Widget Display ----------
+    // When the minimized circle is clicked, show the expanded chat widget and hide the circle.
+    chatbotMinimized.addEventListener("click", () => {
+        chatbotMinimized.style.display = "none";
+        chatbotWidget.style.display = "flex";
+    });
+
+    // When the close button in the expanded widget is clicked, hide the expanded widget and show the minimized circle.
+    closeButton.addEventListener("click", () => {
+        chatbotWidget.style.display = "none";
+        chatbotMinimized.style.display = "flex";
+    });
 })();
