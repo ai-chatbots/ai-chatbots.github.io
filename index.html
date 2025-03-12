@@ -35,7 +35,6 @@
       },
     }
   </script>
-  <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
   <!-- Top Bar with Login & Sign Up -->
@@ -51,6 +50,7 @@
       <h1 class="text-4xl md:text-6xl font-bold mb-4">AION Chatbots</h1>
       <nav class="mb-4">
         <ul class="flex justify-center space-x-6">
+          <!-- Renamed navigation: CHATBOTS, TUTORS, COURSES -->
           <li><a href="index.html" class="text-white font-semibold hover:text-yellow-300">CHATBOTS</a></li>
           <li><a href="tutors.html" class="text-white font-semibold hover:text-yellow-300">TUTORS</a></li>
           <li><a href="courses.html" class="text-white font-semibold hover:text-yellow-300">COURSES</a></li>
@@ -345,8 +345,9 @@
     </div>
   </div>
 
-  <!-- Load Main JS and Widget JS with defer -->
-  <script src="script.js" defer></script>
-  <script src="http://127.0.0.1:8000/static/widget.js" defer></script>
+  <script src="script.js"></script>
+  
+  <!-- Optional Widget Script -->
+  <script src="http://127.0.0.1:8000/static/widget.js" async></script>
 </body>
 </html>
