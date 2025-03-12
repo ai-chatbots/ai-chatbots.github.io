@@ -35,6 +35,7 @@
       },
     }
   </script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
   <!-- Top Bar with Login & Sign Up -->
@@ -315,37 +316,37 @@
     </div>
   </footer>
 
- <!-- Login Modal -->
- <div id="loginModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-  <div class="modal-content bg-white dark:bg-gray-800 rounded-lg p-6 w-80 relative">
-    <button class="absolute top-2 right-2 text-gray-600" id="closeLoginModal">&times;</button>
-    <h2 class="text-xl font-bold mb-4">Login</h2>
-    <form id="loginForm">
-      <input type="email" id="loginEmail" placeholder="Email" class="w-full border border-gray-300 p-2 rounded mb-4" required>
-      <input type="password" id="loginPassword" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-4" required>
-      <button type="submit" class="w-full bg-orange-500 text-white p-2 rounded">Login</button>
-      <p id="loginError" class="text-red-500 text-sm mt-2"></p>
-    </form>
+  <!-- Login Modal -->
+  <div id="loginModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 relative">
+      <button class="absolute top-2 right-2 text-gray-600" id="closeLoginModal">&times;</button>
+      <h2 class="text-xl font-bold mb-4">Login</h2>
+      <form id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Email" class="w-full border border-gray-300 p-2 rounded mb-4" required>
+        <input type="password" id="loginPassword" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-4" required>
+        <button type="submit" class="w-full bg-orange-500 text-white p-2 rounded">Login</button>
+        <p id="loginError" class="text-red-500 text-sm mt-2"></p>
+      </form>
+    </div>
   </div>
-</div>
 
-<!-- Sign Up Modal -->
-<div id="signupModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-  <div class="modal-content bg-white dark:bg-gray-800 rounded-lg p-6 w-80 relative">
-    <button class="absolute top-2 right-2 text-gray-600" id="closeSignupModal">&times;</button>
-    <h2 class="text-xl font-bold mb-4">Sign Up</h2>
-    <form id="signupForm">
-      <input type="text" id="signupName" placeholder="Name" class="w-full border border-gray-300 p-2 rounded mb-4" required>
-      <input type="email" id="signupEmail" placeholder="Email" class="w-full border border-gray-300 p-2 rounded mb-4" required>
-      <input type="password" id="signupPassword" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-4" required>
-      <button type="submit" class="w-full bg-orange-500 text-white p-2 rounded">Sign Up</button>
-      <p id="signupError" class="text-red-500 text-sm mt-2"></p>
-    </form>
+  <!-- Sign Up Modal -->
+  <div id="signupModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 relative">
+      <button class="absolute top-2 right-2 text-gray-600" id="closeSignupModal">&times;</button>
+      <h2 class="text-xl font-bold mb-4">Sign Up</h2>
+      <form id="signupForm">
+        <input type="text" id="signupName" placeholder="Name" class="w-full border border-gray-300 p-2 rounded mb-4" required>
+        <input type="email" id="signupEmail" placeholder="Email" class="w-full border border-gray-300 p-2 rounded mb-4" required>
+        <input type="password" id="signupPassword" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-4" required>
+        <button type="submit" class="w-full bg-orange-500 text-white p-2 rounded">Sign Up</button>
+        <p id="signupError" class="text-red-500 text-sm mt-2"></p>
+      </form>
+    </div>
   </div>
-</div>
 
-<script src="script.js"></script>
-<!-- Optional Widget Script -->
-<script src="http://127.0.0.1:8000/static/widget.js" async></script>
+  <!-- Load Main JS and Widget JS with defer -->
+  <script src="script.js" defer></script>
+  <script src="http://127.0.0.1:8000/static/widget.js" defer></script>
 </body>
 </html>
