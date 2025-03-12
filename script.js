@@ -9,6 +9,11 @@
       document.documentElement.classList.toggle('dark');
       localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
     });
+    // Also listen to touch events
+    toggleBtn.addEventListener('touchstart', function() {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+    });
   });
 })();
 
@@ -60,11 +65,9 @@ if (loginForm) {
       if (!response.ok) {
         showError('loginError', data.detail || 'Login failed');
       } else {
-        // Save token (for example, in localStorage)
         localStorage.setItem('access_token', data.access_token);
         alert('Login successful!');
-        // Optionally close modal
-        document.getElementById('loginModal').classList.add('hidden');
+        loginModal.classList.add('hidden');
       }
     } catch (error) {
       showError('loginError', 'Network error. Please try again.');
@@ -94,8 +97,7 @@ if (signupForm) {
         showError('signupError', data.detail || 'Sign up failed');
       } else {
         alert('Sign up successful! You can now log in.');
-        // Optionally close modal
-        document.getElementById('signupModal').classList.add('hidden');
+        signupModal.classList.add('hidden');
       }
     } catch (error) {
       showError('signupError', 'Network error. Please try again.');
@@ -103,8 +105,7 @@ if (signupForm) {
   });
 }
 
-// ---------- Modal Toggle Handling ----------
-
+// ---------- Modal Toggle Handling with Touch Events ----------
 const loginModal = document.getElementById('loginModal');
 const signupModal = document.getElementById('signupModal');
 const openLoginModal = document.getElementById('openLoginModal');
@@ -116,10 +117,16 @@ if (openLoginModal) {
   openLoginModal.addEventListener('click', () => {
     loginModal.classList.remove('hidden');
   });
+  openLoginModal.addEventListener('touchstart', () => {
+    loginModal.classList.remove('hidden');
+  });
 }
 
 if (openSignupModal) {
   openSignupModal.addEventListener('click', () => {
+    signupModal.classList.remove('hidden');
+  });
+  openSignupModal.addEventListener('touchstart', () => {
     signupModal.classList.remove('hidden');
   });
 }
@@ -128,10 +135,16 @@ if (closeLoginModal) {
   closeLoginModal.addEventListener('click', () => {
     loginModal.classList.add('hidden');
   });
+  closeLoginModal.addEventListener('touchstart', () => {
+    loginModal.classList.add('hidden');
+  });
 }
 
 if (closeSignupModal) {
   closeSignupModal.addEventListener('click', () => {
+    signupModal.classList.add('hidden');
+  });
+  closeSignupModal.addEventListener('touchstart', () => {
     signupModal.classList.add('hidden');
   });
 }

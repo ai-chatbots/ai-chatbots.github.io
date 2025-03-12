@@ -1,7 +1,7 @@
-(function() {
-    const CHATBOT_URL = "http://127.0.0.1:8000";  // Replace with your server domain if needed
+document.addEventListener("DOMContentLoaded", function() {
+    const CHATBOT_URL = "http://127.0.0.1:8000";  // Replace if needed
     const sessionId = "session_" + Math.floor(Math.random() * 1000000);
-
+  
     // 🔹 Inject Styles
     const style = document.createElement("style");
     style.innerHTML = `
@@ -111,7 +111,7 @@
         }
     `;
     document.head.appendChild(style);
-
+  
     // 🔹 Create Widget
     const chatbotWidget = document.createElement("div");
     chatbotWidget.id = "chatbot-widget";
@@ -129,14 +129,14 @@
         </div>
     `;
     document.body.appendChild(chatbotWidget);
-
+  
     const chatBox = document.getElementById("chatbot-box");
     const typingIndicator = document.getElementById("typing-indicator");
     const inputField = document.getElementById("chatbot-input");
     const sendButton = document.getElementById("chatbot-send-btn");
     const voiceButton = document.getElementById("chatbot-voice-btn");
     const clearButton = document.getElementById("chatbot-clear-btn");
-
+  
     function appendMessage(text, isUser = false) {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("chatbot-message", isUser ? "user-message" : "bot-message");
@@ -144,26 +144,26 @@
         chatBox.appendChild(messageDiv);
         chatBox.scrollTop = chatBox.scrollHeight;
     }
-
+  
     // ---------- Text Message Sending ----------
     async function sendTextMessage() {
         const text = inputField.value.trim();
         if (!text) return;
-
+  
         appendMessage(text, true);
         inputField.value = "";
-
+  
         try {
             typingIndicator.style.display = "block";
-
+  
             const response = await fetch(`${CHATBOT_URL}/api/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ session_id: sessionId, user_input: text })
             });
-
+  
             typingIndicator.style.display = "none";
-
+  
             if (response.ok) {
                 const data = await response.json();
                 appendMessage(`Bot (${data.agent}): ${data.response || "No response"}`, false);
@@ -176,12 +176,12 @@
             typingIndicator.style.display = "none";
         }
     }
-
+  
     sendButton.addEventListener("click", sendTextMessage);
     inputField.addEventListener("keydown", (event) => {
         if (event.key === "Enter") sendTextMessage();
     });
-
+  
     // ---------- Voice Input Feature ----------
     if (window.SpeechRecognition || window.webkitSpeechRecognition) {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -202,7 +202,7 @@
             const transcript = event.results[0][0].transcript;
             appendMessage(transcript, true);
             recognition.stop();
-
+  
             try {
                 typingIndicator.textContent = "Processing...";
                 const response = await fetch(`${CHATBOT_URL}/api/voice`, {
@@ -225,14 +225,14 @@
             voiceButton.disabled = false;
             inputField.disabled = false;
         };
-
+  
         recognition.onerror = function(event) {
             appendMessage("Voice recognition error: " + event.error, false);
             typingIndicator.style.display = "none";
             voiceButton.disabled = false;
             inputField.disabled = false;
         };
-
+  
         recognition.onend = function() {
             voiceButton.disabled = false;
             inputField.disabled = false;
@@ -241,14 +241,14 @@
     } else {
         voiceButton.style.display = "none";
     }
-
+  
     // ---------- Clear Chat Feature ----------
     if (clearButton) {
         clearButton.addEventListener("click", () => {
             chatBox.innerHTML = "";
         });
     }
-
+  
     // ---------- Fetch Chat History ----------
     async function fetchChatHistory() {
         try {
@@ -267,6 +267,7 @@
             console.error("Error fetching chat history:", error);
         }
     }
-
+  
     fetchChatHistory();
-})();
+  });
+  
