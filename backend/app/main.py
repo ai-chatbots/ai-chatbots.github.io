@@ -29,4 +29,4 @@ app.include_router(analytics.router, prefix="/analytics", tags=["Analytics"])
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to AION Agents SaaS API"}
+    return {"message": "Welcome to AION Chatbots API"}

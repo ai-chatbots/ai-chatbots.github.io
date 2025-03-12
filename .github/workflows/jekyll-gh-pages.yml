@@ -21,6 +21,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
+exclude:
+  - backend/venv
+
 jobs:
   # Build job
   build:
