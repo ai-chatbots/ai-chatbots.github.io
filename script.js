@@ -5,17 +5,17 @@ document.addEventListener("DOMContentLoaded", function() {
     document.documentElement.classList.add('dark');
   }
   toggleBtns.forEach(toggleBtn => {
-    toggleBtn.addEventListener('click', function() {
+    toggleBtn.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark');
       localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
     });
-    toggleBtn.addEventListener('touchstart', function() {
+    toggleBtn.addEventListener('touchend', () => {
       document.documentElement.classList.toggle('dark');
       localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
     });
   });
 
-  // Dashboard Functionality
+  // Dashboard Functionality (if used)
   function showDashboardContent(section) {
     const dashboardContent = document.getElementById('dashboardContent');
     if (!dashboardContent) return;
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     dashboardContent.innerHTML = content;
   }
-  window.showDashboardContent = showDashboardContent; // make it global if needed
+  window.showDashboardContent = showDashboardContent;
 
   // ---------- Authentication Handling ----------
   function showError(elementId, message) {
@@ -108,18 +108,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
   if (openLoginModal) {
     openLoginModal.addEventListener('click', () => { loginModal.classList.remove('hidden'); });
-    openLoginModal.addEventListener('touchstart', () => { loginModal.classList.remove('hidden'); });
+    openLoginModal.addEventListener('touchend', () => { loginModal.classList.remove('hidden'); });
   }
   if (openSignupModal) {
     openSignupModal.addEventListener('click', () => { signupModal.classList.remove('hidden'); });
-    openSignupModal.addEventListener('touchstart', () => { signupModal.classList.remove('hidden'); });
+    openSignupModal.addEventListener('touchend', () => { signupModal.classList.remove('hidden'); });
   }
   if (closeLoginModal) {
     closeLoginModal.addEventListener('click', () => { loginModal.classList.add('hidden'); });
-    closeLoginModal.addEventListener('touchstart', () => { loginModal.classList.add('hidden'); });
+    closeLoginModal.addEventListener('touchend', () => { loginModal.classList.add('hidden'); });
   }
   if (closeSignupModal) {
     closeSignupModal.addEventListener('click', () => { signupModal.classList.add('hidden'); });
-    closeSignupModal.addEventListener('touchstart', () => { signupModal.classList.add('hidden'); });
+    closeSignupModal.addEventListener('touchend', () => { signupModal.classList.add('hidden'); });
   }
 });
