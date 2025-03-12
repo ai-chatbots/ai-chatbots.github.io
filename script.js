@@ -60,11 +60,9 @@ if (loginForm) {
       if (!response.ok) {
         showError('loginError', data.detail || 'Login failed');
       } else {
-        // Save token (for example, in localStorage)
         localStorage.setItem('access_token', data.access_token);
         alert('Login successful!');
-        // Optionally close modal
-        document.getElementById('loginModal').classList.add('hidden');
+        loginModal.classList.add('hidden');
       }
     } catch (error) {
       showError('loginError', 'Network error. Please try again.');
@@ -94,8 +92,7 @@ if (signupForm) {
         showError('signupError', data.detail || 'Sign up failed');
       } else {
         alert('Sign up successful! You can now log in.');
-        // Optionally close modal
-        document.getElementById('signupModal').classList.add('hidden');
+        signupModal.classList.add('hidden');
       }
     } catch (error) {
       showError('signupError', 'Network error. Please try again.');
@@ -111,6 +108,15 @@ const openLoginModal = document.getElementById('openLoginModal');
 const openSignupModal = document.getElementById('openSignupModal');
 const closeLoginModal = document.getElementById('closeLoginModal');
 const closeSignupModal = document.getElementById('closeSignupModal');
+
+// Function to close modal when clicking outside the content
+function setupModalClose(modal) {
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.add('hidden');
+    }
+  });
+}
 
 if (openLoginModal) {
   openLoginModal.addEventListener('click', () => {
@@ -135,3 +141,6 @@ if (closeSignupModal) {
     signupModal.classList.add('hidden');
   });
 }
+
+setupModalClose(loginModal);
+setupModalClose(signupModal);
