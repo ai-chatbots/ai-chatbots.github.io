@@ -1,0 +1,260 @@
+(function() {
+    const CHATBOT_URL = "http://127.0.0.1:8000";  // Replace with your server domain if needed
+    const sessionId = "session_" + Math.floor(Math.random() * 1000000);
+
+    // 🔹 Inject Styles
+    const style = document.createElement("style");
+    style.innerHTML = `
+        #chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 450px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            background: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+        #chatbot-header {
+            background: #00529B;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+        }
+        #chatbot-header button {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        #chatbot-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background: #f9f9f9;
+        }
+        .chatbot-message {
+            margin: 8px 0;
+            padding: 8px;
+            border-radius: 6px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .user-message {
+            background: #4CAF50;
+            color: white;
+            align-self: flex-end;
+        }
+        .bot-message {
+            background: #e0e0e0;
+            color: black;
+            align-self: flex-start;
+        }
+        #chatbot-input-area {
+            display: flex;
+            padding: 10px;
+            background: #fff;
+        }
+        #chatbot-input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #chatbot-send-btn, #chatbot-voice-btn {
+            background: #00529B;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            margin-left: 8px;
+            border-radius: 4px;
+        }
+        #chatbot-send-btn:hover, #chatbot-voice-btn:hover {
+            background: #003d7a;
+        }
+        #typing-indicator {
+            font-style: italic;
+            color: #666;
+            margin-top: 5px;
+            text-align: center;
+            display: none;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // 🔹 Create Widget
+    const chatbotWidget = document.createElement("div");
+    chatbotWidget.id = "chatbot-widget";
+    chatbotWidget.innerHTML = `
+        <div id="chatbot-header">
+            💬 Chat with us!
+            <button id="chatbot-clear-btn">Clear</button>
+        </div>
+        <div id="chatbot-box"></div>
+        <div id="typing-indicator">Bot is typing...</div>
+        <div id="chatbot-input-area">
+            <input type="text" id="chatbot-input" placeholder="Type a message..." />
+            <button id="chatbot-send-btn">Send</button>
+            <button id="chatbot-voice-btn">🎤 Voice</button>
+        </div>
+    `;
+    document.body.appendChild(chatbotWidget);
+
+    const chatBox = document.getElementById("chatbot-box");
+    const typingIndicator = document.getElementById("typing-indicator");
+    const inputField = document.getElementById("chatbot-input");
+    const sendButton = document.getElementById("chatbot-send-btn");
+    const voiceButton = document.getElementById("chatbot-voice-btn");
+    const clearButton = document.getElementById("chatbot-clear-btn");
+
+    function appendMessage(text, isUser = false) {
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("chatbot-message", isUser ? "user-message" : "bot-message");
+        messageDiv.textContent = text;
+        chatBox.appendChild(messageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    // ---------- Text Message Sending ----------
+    async function sendTextMessage() {
+        const text = inputField.value.trim();
+        if (!text) return;
+
+        appendMessage(text, true);
+        inputField.value = "";
+
+        try {
+            typingIndicator.style.display = "block";
+
+            const response = await fetch(`${CHATBOT_URL}/api/chat`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ session_id: sessionId, user_input: text })
+            });
+
+            typingIndicator.style.display = "none";
+
+            if (response.ok) {
+                const data = await response.json();
+                appendMessage(`Bot (${data.agent}): ${data.response || "No response"}`, false);
+            } else {
+                appendMessage("Error: Could not process your message.", false);
+            }
+        } catch (error) {
+            console.error(error);
+            appendMessage("Error: Unable to connect to the server.", false);
+            typingIndicator.style.display = "none";
+        }
+    }
+
+    sendButton.addEventListener("click", sendTextMessage);
+    inputField.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") sendTextMessage();
+    });
+
+    // ---------- Voice Input Feature ----------
+    if (window.SpeechRecognition || window.webkitSpeechRecognition) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        
+        voiceButton.addEventListener("click", () => {
+            // Disable controls and show listening indicator
+            voiceButton.disabled = true;
+            inputField.disabled = true;
+            typingIndicator.style.display = "block";
+            typingIndicator.textContent = "Listening...";
+            recognition.start();
+        });
+        
+        recognition.onresult = async function(event) {
+            const transcript = event.results[0][0].transcript;
+            // Append transcript as user message
+            appendMessage(transcript, true);
+            // Ensure recognition stops (if not already)
+            recognition.stop();
+
+            try {
+                typingIndicator.textContent = "Processing...";
+                const response = await fetch(`${CHATBOT_URL}/api/voice`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ session_id: sessionId, user_input: transcript })
+                });
+                typingIndicator.style.display = "none";
+                if (response.ok) {
+                    const data = await response.json();
+                    appendMessage(`Bot (${data.agent}): ${data.response || "No response"}`, false);
+                } else {
+                    appendMessage("Error: Could not process your voice message.", false);
+                }
+            } catch (error) {
+                console.error(error);
+                appendMessage("Error: Unable to connect to the server.", false);
+                typingIndicator.style.display = "none";
+            }
+            voiceButton.disabled = false;
+            inputField.disabled = false;
+        };
+
+        recognition.onerror = function(event) {
+            appendMessage("Voice recognition error: " + event.error, false);
+            typingIndicator.style.display = "none";
+            voiceButton.disabled = false;
+            inputField.disabled = false;
+        };
+
+        recognition.onend = function() {
+            // When recognition ends, re-enable controls and clear indicator.
+            voiceButton.disabled = false;
+            inputField.disabled = false;
+            typingIndicator.style.display = "none";
+        };
+    } else {
+        // Hide voice button if not supported
+        voiceButton.style.display = "none";
+    }
+
+    // ---------- Clear Chat Feature ----------
+    if (clearButton) {
+        clearButton.addEventListener("click", () => {
+            chatBox.innerHTML = "";
+        });
+    }
+
+    // ---------- Fetch Chat History ----------
+    async function fetchChatHistory() {
+        try {
+            const response = await fetch(`${CHATBOT_URL}/api/history/${sessionId}`);
+            if (response.ok) {
+                const data = await response.json();
+                data.history.forEach(entry => {
+                    if (entry.sender === "user") {
+                        appendMessage(entry.message, true);
+                    } else {
+                        appendMessage(`Bot: ${entry.message}`, false);
+                    }
+                });
+            }
+        } catch (error) {
+            console.error("Error fetching chat history:", error);
+        }
+    }
+
+    fetchChatHistory();
+})();

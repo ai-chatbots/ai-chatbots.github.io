@@ -1,27 +1,30 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from app.api import auth, chatbot, courses, tutors, subscription, analytics
-from app.database import engine
-from app.models import *  # Import models so they are registered
-from app.database import Base
+from app.database import engine, Base
+from app.models import *  # This imports User, ChatMessage, etc.
 
-app = FastAPI(title="AION Agents SaaS Backend")
+app = FastAPI(title="AION Chatbots Backend")
 
-# Add CORSMiddleware to allow preflight OPTIONS requests and set CORS policies
+# Enable CORS for your frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],            # Allow all origins for testing; replace with specific origins in production
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],            # Allow all HTTP methods (GET, POST, OPTIONS, etc.)
-    allow_headers=["*"],            # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-# Create database tables if they don't exist
+# Create tables (if not already present)
 Base.metadata.create_all(bind=engine)
 
-# Include API routers
+# Mount static files (this will serve files in the "static" directory at /static)
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Mount routers – note we include chatbot router under prefix "/api"
 app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
-app.include_router(chatbot.router, prefix="/chatbot", tags=["Chatbot"])
+app.include_router(chatbot.router, prefix="/api", tags=["Chatbot"])
 app.include_router(courses.router, prefix="/courses", tags=["Courses"])
 app.include_router(tutors.router, prefix="/tutors", tags=["Tutors"])
 app.include_router(subscription.router, tags=["Subscription"])

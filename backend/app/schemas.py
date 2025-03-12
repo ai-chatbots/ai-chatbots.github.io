@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import datetime
 
 # User Schemas
 class User(BaseModel):
@@ -16,10 +17,20 @@ class UserLogin(BaseModel):
 
 # Chatbot Schemas
 class ChatRequest(BaseModel):
-    message: str
+    session_id: str
+    user_input: str
 
 class ChatResponse(BaseModel):
+    agent: str
     response: str
+
+class ChatHistoryEntry(BaseModel):
+    sender: str
+    message: str
+    timestamp: datetime
+
+class ChatHistoryResponse(BaseModel):
+    history: list[ChatHistoryEntry]
 
 # Course Schemas
 class Course(BaseModel):
