@@ -92,6 +92,23 @@
             text-align: center;
             display: none;
         }
+        /* Mobile styles */
+        @media (max-width: 480px) {
+            #chatbot-widget {
+                width: 90%;
+                height: 70%;
+                bottom: 5%;
+                right: 5%;
+            }
+            #chatbot-input-area {
+                flex-direction: column;
+            }
+            #chatbot-send-btn, #chatbot-voice-btn {
+                margin-left: 0;
+                margin-top: 5px;
+                width: 100%;
+            }
+        }
     `;
     document.head.appendChild(style);
 
@@ -174,7 +191,6 @@
         recognition.interimResults = false;
         
         voiceButton.addEventListener("click", () => {
-            // Disable controls and show listening indicator
             voiceButton.disabled = true;
             inputField.disabled = true;
             typingIndicator.style.display = "block";
@@ -184,9 +200,7 @@
         
         recognition.onresult = async function(event) {
             const transcript = event.results[0][0].transcript;
-            // Append transcript as user message
             appendMessage(transcript, true);
-            // Ensure recognition stops (if not already)
             recognition.stop();
 
             try {
@@ -220,13 +234,11 @@
         };
 
         recognition.onend = function() {
-            // When recognition ends, re-enable controls and clear indicator.
             voiceButton.disabled = false;
             inputField.disabled = false;
             typingIndicator.style.display = "none";
         };
     } else {
-        // Hide voice button if not supported
         voiceButton.style.display = "none";
     }
 
