@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chatbot Integrate Popup | AION Chatbots</title>
+  <title>Interactive Programming Course | AION Chatbots</title>
   <!-- TailwindCSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -13,8 +13,7 @@
         extend: {
           animation: {
             'gradient-x': 'gradientAnimation 15s ease infinite',
-            'marquee-slow': 'marquee 60s linear infinite',
-            'zoom': 'zoomAnimation 5s ease-in-out infinite'
+            'marquee-slow': 'marquee 60s linear infinite'
           },
           keyframes: {
             gradientAnimation: {
@@ -25,10 +24,6 @@
             marquee: {
               '0%': { transform: 'translateX(100%)' },
               '100%': { transform: 'translateX(-100%)' }
-            },
-            zoomAnimation: {
-              '0%, 100%': { transform: 'scale(1)' },
-              '50%': { transform: 'scale(1.05)' }
             }
           }
         },
@@ -37,62 +32,189 @@
   </script>
 </head>
 <body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
-  <!-- Shared Header with Back Link -->
+  <!-- Top Bar with Navigation & Dark Mode Toggle -->
+  <div class="absolute top-0 right-0 mt-4 mr-4 z-20 space-x-4">
+    <a href="#" class="text-white font-semibold hover:text-yellow-300">Home</a>
+    <a href="#courseOverview" class="text-white font-semibold hover:text-yellow-300">Overview</a>
+    <a href="#codePlayground" class="text-white font-semibold hover:text-yellow-300">Code Editor</a>
+    <a href="#quizSection" class="text-white font-semibold hover:text-yellow-300">Quiz</a>
+    <a href="#lessons" class="text-white font-semibold hover:text-yellow-300">Lessons</a>
+    <button id="themeToggle" class="bg-yellow-300 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-yellow-400">
+      Toggle Dark Mode
+    </button>
+  </div>
+
+  <!-- Animated Header -->
   <header class="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 bg-gradient-to-r from-orange-500 via-purple-500 to-blue-500 opacity-70 animate-gradient-x"></div>
     <div class="relative z-10 container mx-auto text-center py-8">
-      <h1 class="text-4xl md:text-6xl font-bold mb-4">Chatbot Integrate Popup</h1>
-      <nav class="mb-4">
-        <ul class="flex justify-center space-x-6">
-          <!-- Updated back link label -->
-          <li><a href="index.html" class="text-white font-semibold hover:text-yellow-300">&larr; Back CHATBOTS</a></li>
-        </ul>
-      </nav>
-      <button id="themeToggle" class="bg-yellow-300 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-yellow-400">
-        Toggle Dark Mode
-      </button>
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">Interactive Programming Course</h1>
+      <p class="text-xl md:text-2xl text-white mb-6">Learn modern programming with hands-on interactive lessons</p>
     </div>
   </header>
+
   <!-- Main Content -->
-  <main class="doc-main py-16">
-    <div class="container mx-auto">
-      <!-- Overview Section -->
-      <section class="doc-section mb-8">
-         <h2 class="text-3xl font-bold mb-4">Overview</h2>
-         <p>This documentation describes how the Chatbot Integrate Popup works, including implementation details and integration steps.</p>
-      </section>
-      <!-- Code Example Section -->
-      <section class="doc-section mb-8">
-         <h2 class="text-3xl font-bold mb-4">Code Example</h2>
-         <button class="toggle-code-btn bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 mb-4" onclick="toggleCode('codeBlock3')">Show/Hide Code Example</button>
-         <pre id="codeBlock3" class="code-block bg-gray-100 p-4 rounded overflow-x-auto">
-/* Popup initialization and chatbot integration */
-document.addEventListener("DOMContentLoaded", function() {
-  const popupBtn = document.getElementById("popupBtn");
-  if (popupBtn) {
-    popupBtn.addEventListener("click", function() {
-      document.getElementById("chatbotPopup").classList.toggle("visible");
-    });
-  }
-});
-         </pre>
-      </section>
-      <!-- Theory Section -->
-      <section class="doc-section">
-         <h2 class="text-3xl font-bold mb-4">Theory</h2>
-         <p>The integration popup is designed to be non-intrusive, activating when a user shows interest. It leverages CSS transitions and event listeners for a smooth experience.</p>
-      </section>
-    </div>
+  <main>
+    <!-- Course Overview Section -->
+    <section id="courseOverview" class="py-16">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Course Overview</h2>
+        <p class="mb-4 text-lg">
+          Welcome to our interactive programming course! In this course, you'll learn modern programming concepts through video lessons, hands-on coding challenges, and interactive quizzes.
+        </p>
+        <!-- Animated Marquee of Keywords -->
+        <div class="bg-gray-100 dark:bg-gray-800 overflow-hidden py-2">
+          <div class="whitespace-nowrap animate-marquee-slow">
+            <span class="mx-4 font-semibold text-red-500">JavaScript</span>
+            <span class="mx-4 font-semibold text-green-500">Python</span>
+            <span class="mx-4 font-semibold text-blue-500">APIs</span>
+            <span class="mx-4 font-semibold text-yellow-500">Machine Learning</span>
+            <span class="mx-4 font-semibold text-purple-500">Web Development</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Code Playground Section -->
+    <section id="codePlayground" class="py-16 bg-gray-50 dark:bg-gray-800">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-6">Interactive Code Playground</h2>
+        <p class="text-center mb-4">Type your JavaScript code below and click "Run Code" to see the output.</p>
+        <div class="max-w-4xl mx-auto">
+          <textarea id="codeEditor" class="w-full h-40 p-4 border border-gray-300 rounded mb-4 focus:outline-none" placeholder="console.log('Hello, world!');"></textarea>
+          <button id="runCodeBtn" class="block mx-auto bg-orange-500 text-white py-2 px-6 rounded hover:bg-orange-600">Run Code</button>
+          <div id="codeOutput" class="mt-4 p-4 bg-gray-100 dark:bg-gray-700 rounded shadow text-left font-mono"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Quiz Section -->
+    <section id="quizSection" class="py-16">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Interactive Quiz</h2>
+        <p class="mb-4">Test your knowledge with this quick quiz.</p>
+        <form id="quizForm" class="max-w-xl mx-auto text-left">
+          <div class="mb-4">
+            <label class="block font-semibold mb-2">1. Which language is primarily used for web interactivity?</label>
+            <div class="space-y-2">
+              <label class="inline-flex items-center">
+                <input type="radio" name="q1" value="Python" class="form-radio" /> <span class="ml-2">Python</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input type="radio" name="q1" value="JavaScript" class="form-radio" /> <span class="ml-2">JavaScript</span>
+              </label>
+              <label class="inline-flex items-center">
+                <input type="radio" name="q1" value="C++" class="form-radio" /> <span class="ml-2">C++</span>
+              </label>
+            </div>
+          </div>
+          <button type="button" id="quizSubmit" class="w-full bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Submit Answer</button>
+          <div id="quizFeedback" class="mt-4 p-4 bg-gray-100 dark:bg-gray-700 rounded shadow"></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Interactive Lessons / Dashboard Section -->
+    <section id="lessons" class="py-16 bg-gray-50 dark:bg-gray-800">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Course Lessons</h2>
+        <div id="lessonNav" class="flex justify-center space-x-4 mb-8">
+          <button class="lesson-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showLesson('lesson1')">Lesson 1</button>
+          <button class="lesson-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showLesson('lesson2')">Lesson 2</button>
+          <button class="lesson-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showLesson('lesson3')">Lesson 3</button>
+        </div>
+        <div id="lessonContent" class="p-6 bg-white dark:bg-gray-700 rounded shadow text-left">
+          <p>Select a lesson to view its content.</p>
+        </div>
+      </div>
+    </section>
   </main>
+
   <!-- Footer -->
   <footer class="py-8 bg-gray-800 text-white text-center">
     <div class="container mx-auto">
       <p>&copy; 2025 AION Chatbots. All rights reserved.</p>
     </div>
   </footer>
-  <script src="script.js"></script>
 
-  <!-- Optional Widget Script -->
-  <script src="http://127.0.0.1:8000/static/widget.js" async></script>
+  <!-- Scripts -->
+  <script>
+    // Dark mode toggle using multiple toggle buttons
+    (function() {
+      const toggleBtns = document.querySelectorAll('#themeToggle');
+      if (localStorage.getItem('darkMode') === 'true') {
+        document.documentElement.classList.add('dark');
+      }
+      toggleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.documentElement.classList.toggle('dark');
+          localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+        });
+      });
+    })();
+
+    // Interactive Code Playground
+    document.getElementById('runCodeBtn').addEventListener('click', () => {
+      const code = document.getElementById('codeEditor').value;
+      const outputDiv = document.getElementById('codeOutput');
+      try {
+        // Capture console.log output
+        let capturedOutput = "";
+        const originalConsoleLog = console.log;
+        console.log = function(msg) {
+          capturedOutput += msg + "\n";
+          originalConsoleLog(msg);
+        };
+        eval(code);
+        console.log = originalConsoleLog;
+        outputDiv.textContent = capturedOutput || "Code executed successfully. (No output)";
+      } catch (err) {
+        outputDiv.textContent = "Error: " + err;
+      }
+    });
+
+    // Interactive Quiz Section
+    document.getElementById('quizSubmit').addEventListener('click', () => {
+      const selected = document.querySelector('input[name="q1"]:checked');
+      const feedback = document.getElementById('quizFeedback');
+      if (!selected) {
+        feedback.textContent = "Please select an answer.";
+        feedback.classList.add('text-red-500');
+      } else {
+        if (selected.value === "JavaScript") {
+          feedback.textContent = "Correct! JavaScript is the language of web interactivity.";
+          feedback.classList.remove('text-red-500');
+          feedback.classList.add('text-green-500');
+        } else {
+          feedback.textContent = "Incorrect. Please try again.";
+          feedback.classList.remove('text-green-500');
+          feedback.classList.add('text-red-500');
+        }
+      }
+    });
+
+    // Interactive Lessons Section (Dashboard-like)
+    function showLesson(lesson) {
+      const lessonContent = document.getElementById('lessonContent');
+      let content = "";
+      switch(lesson) {
+        case "lesson1":
+          content = `<h3 class="text-2xl font-bold mb-2">Lesson 1: Introduction to Modern JavaScript</h3>
+          <p>Learn about ES6 features, async/await, and modern JavaScript patterns.</p>`;
+          break;
+        case "lesson2":
+          content = `<h3 class="text-2xl font-bold mb-2">Lesson 2: Building Interactive UIs with React</h3>
+          <p>Understand the fundamentals of React, components, and hooks to build dynamic user interfaces.</p>`;
+          break;
+        case "lesson3":
+          content = `<h3 class="text-2xl font-bold mb-2">Lesson 3: APIs & Backend Integration</h3>
+          <p>Explore how to connect your frontend with RESTful APIs and integrate backend services.</p>`;
+          break;
+        default:
+          content = `<p>Select a lesson to view its content.</p>`;
+      }
+      lessonContent.innerHTML = content;
+    }
+  </script>
 </body>
 </html>
