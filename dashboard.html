@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AION Chatbots – Dashboard</title>
+  <!-- TailwindCSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          animation: {
+            'gradient-x': 'gradientAnimation 15s ease infinite',
+            'marquee-slow': 'marquee 60s linear infinite'
+          },
+          keyframes: {
+            gradientAnimation: {
+              '0%': { 'background-position': '0% 50%' },
+              '50%': { 'background-position': '100% 50%' },
+              '100%': { 'background-position': '0% 50%' }
+            },
+            marquee: {
+              '0%': { transform: 'translateX(100%)' },
+              '100%': { transform: 'translateX(-100%)' }
+            }
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-100">
+  <!-- Top Bar with Navigation & Dark Mode Toggle -->
+  <div class="absolute top-0 right-0 mt-4 mr-4 z-20 space-x-4">
+    <a href="#" id="openLoginModal" class="text-white font-semibold hover:text-yellow-300">Login</a>
+    <a href="#" id="openSignupModal" class="text-white font-semibold hover:text-yellow-300">Sign Up</a>
+  </div>
+  
+  <!-- Shared Header -->
+  <header class="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-orange-500 via-purple-500 to-blue-500 opacity-70 animate-gradient-x"></div>
+    <div class="relative z-10 container mx-auto text-center py-8">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">User Dashboard</h1>
+      <nav class="mb-4">
+        <ul class="flex justify-center space-x-6">
+          <li><a href="index.html" class="text-white font-semibold hover:text-yellow-300">CHATBOTS</a></li>
+          <li><a href="dashboard.html" class="text-white font-semibold hover:text-yellow-300">DASHBOARD</a></li>
+          <li><a href="courses.html" class="text-white font-semibold hover:text-yellow-300">COURSES</a></li>
+        </ul>
+      </nav>
+      <button id="themeToggle" class="bg-yellow-300 text-gray-800 py-2 px-4 rounded-full font-bold hover:bg-yellow-400">
+        Toggle Dark Mode
+      </button>
+    </div>
+  </header>
+  
+  <!-- Main Dashboard Content -->
+  <main class="py-16">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-8">Manage Your AI Chatbots</h2>
+      <!-- Dashboard Navigation Buttons -->
+      <div id="dashboardNav" class="flex justify-center space-x-4 mb-8">
+        <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('strategy')">
+          Strategy
+        </button>
+        <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('agents')">
+          Agents
+        </button>
+        <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('ideaAnalytics')">
+          Idea Analytics
+        </button>
+        <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('ideaSettings')">
+          Idea Settings
+        </button>
+      </div>
+      <!-- Dynamic Dashboard Content -->
+      <div id="dashboardContent" class="p-4 bg-white dark:bg-gray-700 rounded shadow">
+        <p>Click on a button above to view dashboard content.</p>
+      </div>
+    </div>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="py-8 bg-gray-800 text-white text-center">
+    <div class="container mx-auto">
+      <p>&copy; 2025 AION Chatbots. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <!-- Login & Signup Modals (Same as elsewhere) -->
+  <div id="loginModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 relative">
+      <button class="absolute top-2 right-2 text-gray-600" id="closeLoginModal">&times;</button>
+      <h2 class="text-xl font-bold mb-4">Login</h2>
+      <form id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Email" class="w-full border border-gray-300 p-2 rounded mb-4" required>
+        <input type="password" id="loginPassword" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-4" required>
+        <p id="loginError" class="text-red-500 text-sm mb-2"></p>
+        <button type="submit" class="w-full bg-orange-500 text-white p-2 rounded">Login</button>
+      </form>
+    </div>
+  </div>
+  
+  <div id="signupModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-lg p-6 w-80 relative">
+      <button class="absolute top-2 right-2 text-gray-600" id="closeSignupModal">&times;</button>
+      <h2 class="text-xl font-bold mb-4">Sign Up</h2>
+      <form id="signupForm">
+        <input type="text" id="signupName" placeholder="Name" class="w-full border border-gray-300 p-2 rounded mb-4" required>
+        <input type="email" id="signupEmail" placeholder="Email" class="w-full border border-gray-300 p-2 rounded mb-4" required>
+        <input type="password" id="signupPassword" placeholder="Password" class="w-full border border-gray-300 p-2 rounded mb-4" required>
+        <p id="signupError" class="text-red-500 text-sm mb-2"></p>
+        <button type="submit" class="w-full bg-orange-500 text-white p-2 rounded">Sign Up</button>
+      </form>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+
+  <!-- Optional Widget Script -->
+  <script src="http://127.0.0.1:8000/static/widget.js" async></script>
+</body>
+</html>

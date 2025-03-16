@@ -6,7 +6,7 @@ python -m uvicorn app.main:app --reload
 
 
 
-/ai-chatbots
+/ai-chatbots.github.io
 ├── index.html                   # Main page for Chatbots (formerly HOME)
 ├── tutors.html                  # Tutors page (with SEO keyword tags below each tutor)
 ├── courses.html                 # Courses page (each course styled like pricing/chatbot cards)

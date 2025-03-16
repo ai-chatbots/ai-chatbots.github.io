@@ -12,20 +12,62 @@
   });
 })();
 
-// Dashboard Functionality
+// Updated Dashboard Functionality
 function showDashboardContent(section) {
   const dashboardContent = document.getElementById('dashboardContent');
   if (!dashboardContent) return;
   let content = '';
   switch(section) {
     case 'strategy':
-      content = '<h3 class="text-xl font-bold mb-2">Strategy</h3><p>This is the dashboard strategy content.</p>';
+      content = `
+        <h3 class="text-2xl font-bold mb-4">Business Strategy</h3>
+        <p class="mb-4">Outline your business strategy based on the AI agents you have integrated.</p>
+        <textarea id="strategyText" class="w-full p-4 border border-gray-300 rounded" placeholder="Enter your business strategy here..."></textarea>
+        <button class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600" onclick="saveStrategy()">Save Strategy</button>
+      `;
       break;
-    case 'analytics':
-      content = '<h3 class="text-xl font-bold mb-2">Analytics</h3><p>Here you can view detailed analytics of your chatbot performance.</p>';
+    case 'agents':
+      content = `
+        <h3 class="text-2xl font-bold mb-4">Build Your Agent System</h3>
+        <div class="flex justify-center space-x-4 mb-4">
+          <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="addAgent('square')">Add Square</button>
+          <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="addAgent('circle')">Add Circle</button>
+          <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="addAgent('triangle')">Add Triangle</button>
+        </div>
+        <div id="agentsArea" class="relative border border-dashed border-gray-400 h-80 mb-4"></div>
+        <button class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600" onclick="connectAgents()">Connect Agents</button>
+      `;
       break;
-    case 'settings':
-      content = '<h3 class="text-xl font-bold mb-2">Settings</h3><p>Adjust your dashboard settings and preferences here.</p>';
+    case 'ideaAnalytics':
+      content = `
+        <h3 class="text-2xl font-bold mb-4">Idea Analytics</h3>
+        <p class="mb-4">View and analyze performance data for your new agent ideas. Customize dashboards, review trends, and make data-driven decisions.</p>
+        <!-- You could later embed interactive charts here -->
+        <div class="border p-4 rounded bg-gray-100 dark:bg-gray-800">
+          <p>Interactive analytics charts coming soon...</p>
+        </div>
+      `;
+      break;
+    case 'ideaSettings':
+      content = `
+        <h3 class="text-2xl font-bold mb-4">Idea Settings</h3>
+        <p class="mb-4">Configure settings for your new agent modules. Adjust parameters, integrate with other tools, and save custom configurations.</p>
+        <div class="space-y-4">
+          <label class="block">
+            <span class="font-semibold">Integration API Key:</span>
+            <input type="text" class="w-full border border-gray-300 p-2 rounded" placeholder="Enter API key">
+          </label>
+          <label class="block">
+            <span class="font-semibold">Default Behavior:</span>
+            <select class="w-full border border-gray-300 p-2 rounded">
+              <option>Standard</option>
+              <option>Aggressive</option>
+              <option>Conservative</option>
+            </select>
+          </label>
+          <button class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Save Settings</button>
+        </div>
+      `;
       break;
     default:
       content = '<p>Click on a button above to view dashboard content.</p>';
@@ -33,14 +75,108 @@ function showDashboardContent(section) {
   dashboardContent.innerHTML = content;
 }
 
-// ---------- Authentication Handling ----------
+// Save Strategy Function
+function saveStrategy() {
+  const strategy = document.getElementById('strategyText').value;
+  alert("Strategy saved: " + strategy);
+}
 
-// Helper function to show error messages
+// Agents Constructor Functions
+function addAgent(shape) {
+  const agentsArea = document.getElementById('agentsArea');
+  const agent = document.createElement('div');
+  agent.classList.add('agent', 'absolute', 'cursor-move');
+  // Randomize initial position
+  agent.style.top = Math.random() * 70 + "%";
+  agent.style.left = Math.random() * 70 + "%";
+  
+  if(shape === 'square') {
+    agent.style.width = "50px";
+    agent.style.height = "50px";
+    agent.style.backgroundColor = "#3b82f6";
+    agent.textContent = "SQ";
+  } else if(shape === 'circle') {
+    agent.style.width = "50px";
+    agent.style.height = "50px";
+    agent.style.backgroundColor = "#ef4444";
+    agent.style.borderRadius = "50%";
+    agent.textContent = "CI";
+  } else if(shape === 'triangle') {
+    agent.style.width = "0";
+    agent.style.height = "0";
+    agent.style.borderLeft = "25px solid transparent";
+    agent.style.borderRight = "25px solid transparent";
+    agent.style.borderBottom = "50px solid #10b981";
+    agent.textContent = "";
+  }
+  agent.setAttribute("draggable", "true");
+  agent.addEventListener("dragstart", dragStart);
+  agentsArea.appendChild(agent);
+}
+
+function dragStart(e) {
+  e.dataTransfer.setData("text/plain", null);
+  this.classList.add("dragging");
+}
+
+const agentsArea = document.getElementById("agentsArea");
+if(agentsArea) {
+  agentsArea.addEventListener("dragover", e => {
+    e.preventDefault();
+    const dragging = document.querySelector(".dragging");
+    if (dragging) {
+      const rect = agentsArea.getBoundingClientRect();
+      dragging.style.left = (e.clientX - rect.left - dragging.offsetWidth/2) + "px";
+      dragging.style.top = (e.clientY - rect.top - dragging.offsetHeight/2) + "px";
+    }
+  });
+  agentsArea.addEventListener("drop", e => {
+    e.preventDefault();
+    const dragging = document.querySelector(".dragging");
+    if(dragging) {
+      dragging.classList.remove("dragging");
+    }
+  });
+}
+
+function connectAgents() {
+  const agentsArea = document.getElementById('agentsArea');
+  let canvas = document.getElementById('agentsCanvas');
+  if (canvas) { canvas.remove(); }
+  canvas = document.createElement('canvas');
+  canvas.id = 'agentsCanvas';
+  canvas.width = agentsArea.offsetWidth;
+  canvas.height = agentsArea.offsetHeight;
+  canvas.style.position = 'absolute';
+  canvas.style.top = 0;
+  canvas.style.left = 0;
+  canvas.style.pointerEvents = 'none';
+  agentsArea.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  const agentElements = agentsArea.querySelectorAll('.agent');
+  const positions = [];
+  agentElements.forEach(agent => {
+    const rect = agent.getBoundingClientRect();
+    const containerRect = agentsArea.getBoundingClientRect();
+    const x = rect.left - containerRect.left + rect.width / 2;
+    const y = rect.top - containerRect.top + rect.height / 2;
+    positions.push({ x, y });
+  });
+  ctx.strokeStyle = "#000";
+  ctx.lineWidth = 2;
+  for (let i = 0; i < positions.length - 1; i++) {
+    ctx.beginPath();
+    ctx.moveTo(positions[i].x, positions[i].y);
+    ctx.lineTo(positions[i+1].x, positions[i+1].y);
+    ctx.stroke();
+  }
+}
+
+// ---------- Authentication Handling ----------
 function showError(elementId, message) {
   document.getElementById(elementId).textContent = message;
 }
 
-// Login form handling
 const loginForm = document.getElementById('loginForm');
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
@@ -51,9 +187,7 @@ if (loginForm) {
     try {
       const response = await fetch('http://127.0.0.1:8000/auth/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
       const data = await response.json();
@@ -70,7 +204,6 @@ if (loginForm) {
   });
 }
 
-// Sign Up form handling
 const signupForm = document.getElementById('signupForm');
 if (signupForm) {
   signupForm.addEventListener('submit', async (e) => {
@@ -82,9 +215,7 @@ if (signupForm) {
     try {
       const response = await fetch('http://127.0.0.1:8000/auth/signup', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ full_name, email, password })
       });
       const data = await response.json();
@@ -101,7 +232,6 @@ if (signupForm) {
 }
 
 // ---------- Modal Toggle Handling ----------
-
 const loginModal = document.getElementById('loginModal');
 const signupModal = document.getElementById('signupModal');
 const openLoginModal = document.getElementById('openLoginModal');
@@ -109,7 +239,6 @@ const openSignupModal = document.getElementById('openSignupModal');
 const closeLoginModal = document.getElementById('closeLoginModal');
 const closeSignupModal = document.getElementById('closeSignupModal');
 
-// Function to close modal when clicking outside the content
 function setupModalClose(modal) {
   modal.addEventListener('click', (e) => {
     if (e.target === modal) {
@@ -119,27 +248,16 @@ function setupModalClose(modal) {
 }
 
 if (openLoginModal) {
-  openLoginModal.addEventListener('click', () => {
-    loginModal.classList.remove('hidden');
-  });
+  openLoginModal.addEventListener('click', () => { loginModal.classList.remove('hidden'); });
 }
-
 if (openSignupModal) {
-  openSignupModal.addEventListener('click', () => {
-    signupModal.classList.remove('hidden');
-  });
+  openSignupModal.addEventListener('click', () => { signupModal.classList.remove('hidden'); });
 }
-
 if (closeLoginModal) {
-  closeLoginModal.addEventListener('click', () => {
-    loginModal.classList.add('hidden');
-  });
+  closeLoginModal.addEventListener('click', () => { loginModal.classList.add('hidden'); });
 }
-
 if (closeSignupModal) {
-  closeSignupModal.addEventListener('click', () => {
-    signupModal.classList.add('hidden');
-  });
+  closeSignupModal.addEventListener('click', () => { signupModal.classList.add('hidden'); });
 }
 
 setupModalClose(loginModal);
