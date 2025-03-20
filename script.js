@@ -172,11 +172,54 @@ function connectAgents() {
   }
 }
 
+// ---------- Simple Auth UI Handling ----------
+
+// This function updates the auth links in the top bar based on whether the user is logged in.
+function updateAuthUI() {
+  const loginLink = document.getElementById('openLoginModal');
+  const signupLink = document.getElementById('openSignupModal');
+  let logoutLink = document.getElementById('logoutLink');
+
+  const token = localStorage.getItem('access_token');
+  if (token) {
+    // If logged in, hide login/signup and show logout link
+    if (loginLink) loginLink.style.display = 'none';
+    if (signupLink) signupLink.style.display = 'none';
+    if (!logoutLink) {
+      logoutLink = document.createElement('a');
+      logoutLink.href = '#';
+      logoutLink.id = 'logoutLink';
+      logoutLink.className = "text-white font-semibold hover:text-yellow-300";
+      logoutLink.textContent = "Logout";
+      // Append the logout link to the same container as login/signup links.
+      const authContainer = loginLink.parentElement;
+      authContainer.appendChild(logoutLink);
+      logoutLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('access_token');
+        alert('Logged out successfully.');
+        updateAuthUI();
+      });
+    } else {
+      logoutLink.style.display = 'inline-block';
+    }
+  } else {
+    // Not logged in: show login and signup, hide logout
+    if (loginLink) loginLink.style.display = 'inline-block';
+    if (signupLink) signupLink.style.display = 'inline-block';
+    if (logoutLink) logoutLink.style.display = 'none';
+  }
+}
+updateAuthUI();
+
 // ---------- Authentication Handling ----------
+
+// Helper function to show error messages
 function showError(elementId, message) {
   document.getElementById(elementId).textContent = message;
 }
 
+// Login form handling
 const loginForm = document.getElementById('loginForm');
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
@@ -187,7 +230,9 @@ if (loginForm) {
     try {
       const response = await fetch('http://127.0.0.1:8000/auth/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ email, password })
       });
       const data = await response.json();
@@ -196,7 +241,8 @@ if (loginForm) {
       } else {
         localStorage.setItem('access_token', data.access_token);
         alert('Login successful!');
-        loginModal.classList.add('hidden');
+        document.getElementById('loginModal').classList.add('hidden');
+        updateAuthUI();
       }
     } catch (error) {
       showError('loginError', 'Network error. Please try again.');
@@ -204,6 +250,7 @@ if (loginForm) {
   });
 }
 
+// Sign Up form handling
 const signupForm = document.getElementById('signupForm');
 if (signupForm) {
   signupForm.addEventListener('submit', async (e) => {
@@ -215,7 +262,9 @@ if (signupForm) {
     try {
       const response = await fetch('http://127.0.0.1:8000/auth/signup', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({ full_name, email, password })
       });
       const data = await response.json();
@@ -223,7 +272,7 @@ if (signupForm) {
         showError('signupError', data.detail || 'Sign up failed');
       } else {
         alert('Sign up successful! You can now log in.');
-        signupModal.classList.add('hidden');
+        document.getElementById('signupModal').classList.add('hidden');
       }
     } catch (error) {
       showError('signupError', 'Network error. Please try again.');
