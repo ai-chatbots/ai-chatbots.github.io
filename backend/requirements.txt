@@ -1,5 +1,34 @@
+# Web framework and ASGI server
 fastapi
 uvicorn
-SQLAlchemy
+
+# Database and ORM
+sqlalchemy
 pymysql
+
+# Security and Authentication
+passlib[bcrypt]
+pyjwt
 python-jose
+
+# Environment Variables
+python-dotenv
+
+# LangChain for AI Agents & RAG
+langchain
+langchain-community
+langchain-openai
+
+# FAISS for Vector Search (Choose the correct version)
+faiss-cpu  # Use this for CPU
+# faiss-gpu  # Uncomment this if you have a CUDA GPU
+
+# OpenAI API
+openai
+
+# HTTP Requests
+requests
+
+# Pydantic for Data Validation
+pydantic
+pydantic[email]

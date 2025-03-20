@@ -58,3 +58,4 @@ docker-build/
 backend/instance/
 backend/gunicorn_error.log
 backend/gunicorn_access.log
+.env

@@ -37,6 +37,7 @@ python -m uvicorn app.main:app --reload
     ├── workflows/
         │   ├── jekyll.yml
 └── backend/                     # Back‑end application folder
+    ├── agents/
     ├── app/
     │   ├── __init__.py
     │   ├── main.py              # Main entry point for the back‑end server

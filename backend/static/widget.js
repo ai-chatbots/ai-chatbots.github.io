@@ -1,5 +1,5 @@
 (function() {
-    const CHATBOT_URL = "http://127.0.0.1:8000";  // Replace with your server domain if needed
+    const CHATBOT_URL = "http://127.0.0.1:8000";  // Replace with your production server domain if needed
     const sessionId = "session_" + Math.floor(Math.random() * 1000000);
 
     // ---------- Inject Styles ----------
@@ -169,7 +169,7 @@
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    // ---------- Text Message Sending ----------
+    // ---------- Text Message Sending (using advanced-chat endpoint) ----------
     async function sendTextMessage() {
         const text = inputField.value.trim();
         if (!text) return;
@@ -180,7 +180,8 @@
         try {
             typingIndicator.style.display = "block";
 
-            const response = await fetch(`${CHATBOT_URL}/api/chat`, {
+            // Use the advanced-chat endpoint to interact with agents
+            const response = await fetch(`${CHATBOT_URL}/api/advanced-chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ session_id: sessionId, user_input: text })
