@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: aion_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: supersecret
+      MYSQL_DATABASE: aion_db
+      MYSQL_USER: aionuser
+      MYSQL_PASSWORD: aionpass
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: aion_backend
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: mysql+pymysql://root:dkerl2345W$E@localhost/aion_db
+      SECRET_KEY: supersecret
+      ALGORITHM: HS256
+    ports:
+      - "8000:8000"
+
+volumes:
+  db_data:
