@@ -61,25 +61,31 @@
     <div class="container mx-auto text-center">
       <h2 class="text-3xl font-bold mb-8">Manage Your AI Chatbots</h2>
       <!-- Dashboard Navigation Buttons -->
-      <div id="dashboardNav" class="flex justify-center space-x-4 mb-8">
-        <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('strategy')">
-          Strategy
-        </button>
-        <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('agents')">
-          Agents
-        </button>
-        <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('ideaAnalytics')">
-          Idea Analytics
-        </button>
-        <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('ideaSettings')">
-          Idea Settings
-        </button>
-      </div>
-      <!-- Dynamic Dashboard Content -->
-      <div id="dashboardContent" class="p-4 bg-white dark:bg-gray-700 rounded shadow">
-        <p>Click on a button above to view dashboard content.</p>
-      </div>
-    </div>
+<div id="dashboardNav" class="flex justify-center space-x-4 mb-8">
+  <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('strategy')">
+    Strategy
+  </button>
+  <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('agents')">
+    Agents
+  </button>
+  <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('ideaAnalytics')">
+    Idea Analytics
+  </button>
+  <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('ideaSettings')">
+    Idea Settings
+  </button>
+  <!-- New Upload Data Button -->
+  <button class="dashboard-btn bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600" onclick="showDashboardContent('upload')">
+    Upload Data
+  </button>
+</div>
+
+<!-- Dynamic Dashboard Content -->
+<div id="dashboardContent" class="p-4 bg-white dark:bg-gray-700 rounded shadow">
+  <p>Click on a button above to view dashboard content.</p>
+</div>
+
+
   </main>
   
   <!-- Footer -->

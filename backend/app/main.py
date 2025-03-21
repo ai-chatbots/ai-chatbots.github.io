@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import auth, chatbot, courses, tutors, subscription, analytics
+from app.api import auth, chatbot, courses, tutors, subscription, analytics, upload_documents
 from app.database import engine, Base
 from app.models import *  # This imports User, ChatMessage, etc.
 
@@ -29,6 +29,8 @@ app.include_router(courses.router, prefix="/courses", tags=["Courses"])
 app.include_router(tutors.router, prefix="/tutors", tags=["Tutors"])
 app.include_router(subscription.router, tags=["Subscription"])
 app.include_router(analytics.router, prefix="/analytics", tags=["Analytics"])
+app.include_router(upload_documents.router, prefix="/api", tags=["Document Upload"])
+
 
 @app.get("/")
 def read_root():

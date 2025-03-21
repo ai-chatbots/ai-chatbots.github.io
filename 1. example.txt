@@ -1,0 +1,19 @@
+Welcome to AION Coffee Shop!
+
+Menu:
+1. Latte: A creamy blend of espresso and steamed milk, served hot.
+2. Cappuccino: A strong espresso with frothy milk foam.
+3. Espresso: A concentrated coffee shot for a quick boost.
+4. Mocha: A delicious mix of espresso, steamed milk, and chocolate.
+
+FAQs:
+Q: What are your operating hours?
+A: We are open from 8 AM to 8 PM every day.
+
+Q: Do you offer vegan options?
+A: Yes, we provide plant-based milk alternatives.
+
+Q: How can I place an order?
+A: Simply tell us the product name and quantity, and our chatbot will guide you through the process.
+
+For more information, visit our website or contact us at info@aioncoffeeshop.com.

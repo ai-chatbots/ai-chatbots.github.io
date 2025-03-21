@@ -69,10 +69,50 @@ function showDashboardContent(section) {
         </div>
       `;
       break;
+      case 'upload':
+      content = `
+        <h3 class="text-xl font-bold mb-2">Upload Data</h3>
+        <form id="uploadForm" class="mx-auto w-full max-w-md">
+          <input type="file" id="fileInput" accept=".txt, .pdf, .docx" class="mb-4 p-2 border border-gray-300 rounded" required />
+          <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Upload</button>
+        </form>
+        <div id="uploadResponse" class="mt-4 font-bold"></div>
+      `;
+      break;
     default:
       content = '<p>Click on a button above to view dashboard content.</p>';
   }
   dashboardContent.innerHTML = content;
+
+  // If section is "upload", add the event listener for the upload form
+  if (section === "upload") {
+    const uploadForm = document.getElementById("uploadForm");
+    const fileInput = document.getElementById("fileInput");
+    const uploadResponse = document.getElementById("uploadResponse");
+
+    uploadForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      uploadResponse.textContent = "";
+
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        const res = await fetch("http://127.0.0.1:8000/api/upload-documents", {
+          method: "POST",
+          body: formData
+        });
+        const result = await res.json();
+        uploadResponse.textContent = result.detail || "Upload complete";
+      } catch (err) {
+        console.error(err);
+        uploadResponse.textContent = "Upload failed";
+      }
+    });
+  }
 }
 
 // Save Strategy Function
