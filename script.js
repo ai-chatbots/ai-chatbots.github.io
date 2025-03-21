@@ -72,21 +72,34 @@ function showDashboardContent(section) {
       `;
       break;
       case 'upload':
-      content = `
-        <h3 class="text-xl font-bold mb-2">Upload Data</h3>
-        <form id="uploadForm" class="mx-auto w-full max-w-md">
-          <input type="file" id="fileInput" accept=".txt, .pdf, .docx" class="mb-4 p-2 border border-gray-300 rounded" required />
-          <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Upload</button>
-        </form>
-        <div id="uploadResponse" class="mt-4 font-bold"></div>
-      `;
-      break;
+        content = `
+          <h3 class="text-xl font-bold mb-2">Upload Data</h3>
+          <form id="uploadForm" class="mx-auto w-full max-w-md">
+            <input type="file" id="fileInput" accept=".txt, .pdf, .docx" class="mb-4 p-2 border border-gray-300 rounded" required />
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Upload</button>
+          </form>
+          <div id="uploadResponse" class="mt-4 font-bold"></div>
+        `;
+        break;
+      case 'fine_tuning':
+        // New case for fine-tuning
+        content = `
+          <h3 class="text-xl font-bold mb-2">Fine Tuning</h3>
+          <p class="mb-2">Upload your JSONL training file to start a fine-tuning job.</p>
+          <form id="fineTuneForm" class="mx-auto w-full max-w-md">
+            <input type="file" id="fineTuneInput" accept=".jsonl" class="mb-4 p-2 border border-gray-300 rounded" required />
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded">Start Fine Tuning</button>
+          </form>
+          <div id="fineTuneResponse" class="mt-4 font-bold"></div>
+        `;
+        break;
     default:
       content = '<p>Click on a button above to view dashboard content.</p>';
   }
   dashboardContent.innerHTML = content;
 
   // If section is "upload", add the event listener for the upload form
+  // Attach event listeners for specific sections
   if (section === "upload") {
     const uploadForm = document.getElementById("uploadForm");
     const fileInput = document.getElementById("fileInput");
@@ -95,10 +108,8 @@ function showDashboardContent(section) {
     uploadForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       uploadResponse.textContent = "";
-
       const file = fileInput.files[0];
       if (!file) return;
-
       const formData = new FormData();
       formData.append("file", file);
 
@@ -115,9 +126,37 @@ function showDashboardContent(section) {
       }
     });
   }
-  if(section === "strategy"){
-    loadDashboardSettings().then(settings => {
-      document.getElementById("strategyText").value = settings.business_strategy || "";
+
+  // Attach event listener for fine-tuning section
+  if (section === "fine_tuning") {
+    const fineTuneForm = document.getElementById("fineTuneForm");
+    const fineTuneResponse = document.getElementById("fineTuneResponse");
+
+    fineTuneForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      fineTuneResponse.textContent = "";
+      const fileInput = document.getElementById("fineTuneInput");
+      const file = fileInput.files[0];
+      if (!file) return;
+      const formData = new FormData();
+      formData.append("file", file);
+
+      try {
+        fineTuneResponse.textContent = "Starting fine tuning job...";
+        const res = await fetch("http://127.0.0.1:8000/api/fine-tune", {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
+        if (res.ok) {
+          fineTuneResponse.textContent = `Fine tuning job started! Job ID: ${data.job_id}`;
+        } else {
+          fineTuneResponse.textContent = `Error: ${data.detail}`;
+        }
+      } catch (error) {
+        console.error(error);
+        fineTuneResponse.textContent = "Fine tuning failed";
+      }
     });
   }
 }
