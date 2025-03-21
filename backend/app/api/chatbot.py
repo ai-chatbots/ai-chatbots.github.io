@@ -11,6 +11,25 @@ from agents.details import handle_details_query
 from agents.order_taking import handle_order
 from agents.recommendation import handle_recommendation_query
 
+# Import the AION‑Agents SDK components
+from aion_agents import Agent, Controller
+
+# Define your five agents with custom names and prompts.
+guard_agent = Agent("GuardAgent", prompt="Check for inappropriate content")
+classification_agent = Agent("ClassificationAgent", prompt="Determine query type")
+order_agent = Agent("OrderAgent", prompt="Process order details if applicable")
+details_agent = Agent("DetailsAgent", prompt="Retrieve details and FAQs")
+recommendation_agent = Agent("RecommendationAgent", prompt="Offer recommendations")
+
+# Create the controller that chains the five agents
+chain_controller = Controller([
+    guard_agent,
+    classification_agent,
+    order_agent,
+    details_agent,
+    recommendation_agent
+])
+
 router = APIRouter()
 
 # Dummy function to simulate the 5-agent processing
@@ -102,6 +121,32 @@ def advanced_chat(request: ChatRequest, db: Session = Depends(get_db)):
     db.refresh(bot_msg)
     
     return ChatResponse(agent=agent, response=response_text)
+
+@router.post("/advanced-voice", response_model=ChatResponse)
+def advanced_voice(request: ChatRequest, db: Session = Depends(get_db)):
+    """
+    Process voice input through the chain of five agents.
+    The voice input should be converted to text on the frontend before sending.
+    The output of each agent is stored in memory and passed to the next.
+    """
+    if not request.session_id or not request.user_input:
+        raise HTTPException(status_code=400, detail="Missing session_id or user_input")
+
+    # Process the voice input (as text) through the chain controller.
+    final_output = chain_controller.run(request.user_input)
+    
+    # Store the conversation in the database.
+    user_msg = ChatMessage(session_id=request.session_id, sender="user", message=request.user_input)
+    db.add(user_msg)
+    db.commit()
+    db.refresh(user_msg)
+    
+    bot_msg = ChatMessage(session_id=request.session_id, sender="bot", message=final_output)
+    db.add(bot_msg)
+    db.commit()
+    db.refresh(bot_msg)
+    
+    return ChatResponse(agent="AdvancedVoice", response=final_output)
 
 @router.post("/voice", response_model=ChatResponse)
 def process_voice(request: ChatRequest, db: Session = Depends(get_db)):

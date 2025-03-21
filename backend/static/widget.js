@@ -227,10 +227,11 @@
             const transcript = event.results[0][0].transcript;
             appendMessage(transcript, true);
             recognition.stop();
-
+        
             try {
                 typingIndicator.textContent = "Processing...";
-                const response = await fetch(`${CHATBOT_URL}/api/voice`, {
+                // Call the new advanced voice endpoint instead of the old voice endpoint
+                const response = await fetch(`${CHATBOT_URL}/api/advanced-voice`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ session_id: sessionId, user_input: transcript })
@@ -249,7 +250,7 @@
             }
             voiceButton.disabled = false;
             inputField.disabled = false;
-        };
+        };        
 
         recognition.onerror = function(event) {
             appendMessage("Voice recognition error: " + event.error, false);

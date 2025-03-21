@@ -21,9 +21,10 @@ function showDashboardContent(section) {
     case 'strategy':
       content = `
         <h3 class="text-2xl font-bold mb-4">Business Strategy</h3>
-        <p class="mb-4">Outline your business strategy based on the AI agents you have integrated.</p>
         <textarea id="strategyText" class="w-full p-4 border border-gray-300 rounded" placeholder="Enter your business strategy here..."></textarea>
         <button class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600" onclick="saveStrategy()">Save Strategy</button>
+        <button class="mt-4 ml-2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" onclick="loadInsights()">View Insights</button>
+        <div id="insightsDisplay" class="mt-4 p-4 bg-gray-100 dark:bg-gray-700 rounded"></div>
       `;
       break;
     case 'agents':
@@ -36,6 +37,7 @@ function showDashboardContent(section) {
         </div>
         <div id="agentsArea" class="relative border border-dashed border-gray-400 h-80 mb-4"></div>
         <button class="bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600" onclick="connectAgents()">Connect Agents</button>
+        <button class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 mt-4" onclick="saveAgents()">Save Agents Configuration</button>
       `;
       break;
     case 'ideaAnalytics':
@@ -113,7 +115,115 @@ function showDashboardContent(section) {
       }
     });
   }
+  if(section === "strategy"){
+    loadDashboardSettings().then(settings => {
+      document.getElementById("strategyText").value = settings.business_strategy || "";
+    });
+  }
 }
+
+async function loadInsights() {
+  const insightsDisplay = document.getElementById("insightsDisplay");
+  insightsDisplay.textContent = "Loading insights...";
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/dashboard/insights", {
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("access_token")
+      }
+    });
+    if (response.ok) {
+      const data = await response.json();
+      insightsDisplay.innerHTML = data.insights.map(insight => `<p class="mb-2">${insight}</p>`).join("");
+    } else {
+      insightsDisplay.textContent = "Failed to load insights.";
+    }
+  } catch (err) {
+    console.error(err);
+    insightsDisplay.textContent = "Error loading insights.";
+  }
+}
+
+// Function to load dashboard settings from backend
+async function loadDashboardSettings() {
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/dashboard/settings", {
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("access_token")
+      }
+    });
+    if (response.ok) {
+      return await response.json();
+    } else {
+      console.error("Failed to load settings");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+  return { business_strategy: "", agent_configuration: [] };
+}
+
+// Save Business Strategy: Update only the strategy part
+async function saveStrategy() {
+  const strategy = document.getElementById('strategyText').value;
+  let settings = await loadDashboardSettings();
+  settings.business_strategy = strategy;
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/dashboard/settings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("access_token")
+      },
+      body: JSON.stringify(settings)
+    });
+    if(response.ok){
+      alert("Business strategy saved successfully!");
+    } else {
+      alert("Failed to save business strategy.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error saving strategy.");
+  }
+}
+
+// Save Agent Configuration: Collect agent positions and save them
+async function saveAgents() {
+  const agentsArea = document.getElementById('agentsArea');
+  const agentElements = agentsArea.querySelectorAll('.agent');
+  const agents = [];
+  agentElements.forEach(agent => {
+    const rect = agent.getBoundingClientRect();
+    const containerRect = agentsArea.getBoundingClientRect();
+    // Optionally, store a custom data attribute (e.g., data-shape) on the element.
+    agents.push({
+      shape: agent.getAttribute('data-shape') || agent.textContent.trim(),
+      top: rect.top - containerRect.top,
+      left: rect.left - containerRect.left
+    });
+  });
+  let settings = await loadDashboardSettings();
+  settings.agent_configuration = agents;
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/dashboard/settings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("access_token")
+      },
+      body: JSON.stringify(settings)
+    });
+    if(response.ok){
+      alert("Agent configuration saved successfully!");
+    } else {
+      alert("Failed to save agent configuration.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Error saving agent configuration.");
+  }
+}
+
 
 // Save Strategy Function
 function saveStrategy() {
@@ -130,6 +240,7 @@ function addAgent(shape) {
   agent.style.top = Math.random() * 70 + "%";
   agent.style.left = Math.random() * 70 + "%";
   
+  // Set dimensions and content based on shape, and store type in a data attribute
   if(shape === 'square') {
     agent.style.width = "50px";
     agent.style.height = "50px";
@@ -147,12 +258,14 @@ function addAgent(shape) {
     agent.style.borderLeft = "25px solid transparent";
     agent.style.borderRight = "25px solid transparent";
     agent.style.borderBottom = "50px solid #10b981";
-    agent.textContent = "";
+    // For triangles, you might want to set a label or store a default text.
   }
+  agent.setAttribute("data-shape", shape);
   agent.setAttribute("draggable", "true");
   agent.addEventListener("dragstart", dragStart);
   agentsArea.appendChild(agent);
 }
+
 
 function dragStart(e) {
   e.dataTransfer.setData("text/plain", null);
